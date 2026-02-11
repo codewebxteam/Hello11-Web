@@ -28,14 +28,23 @@ const RegisterScreen = () => {
   const router = useRouter();
 
   const handleRegister = () => {
-    if (!name || phoneNumber.length < 10 || password.length < 6) {
+    if (!name || !phoneNumber || !password) {
       Alert.alert("Attention", "Please fill all fields correctly.");
+      return;
+    }
+    if(phoneNumber.length < 10 ||  phoneNumber.length>10){
+      Alert.alert("Error", "Please enter valid Mobile number")
+      return;
+    }
+    if(password.length<6){
+      Alert.alert("Error", "Passwords must be at least 6 character long");
       return;
     }
     if (password !== confirmPassword) {
       Alert.alert("Error", "Passwords do not match!");
       return;
     }
+    
     Alert.alert("Success", `Welcome ${name}! Account created successfully!`);
     router.push({ pathname: "/screens/HomeScreen", params: { userName: name } });
   };

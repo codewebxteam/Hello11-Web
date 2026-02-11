@@ -96,7 +96,10 @@ const HomeScreen = () => {
         if (name === "Booking") {
           // Folder structure ke hisaab se redirection
           router.push("/screens/BookingScreen");
-        } else {
+        } else if(name === "Rent"){
+          router.push("/screens/RentScreen")
+        }
+        else {
           setActiveTab(name);
         }
       }}
@@ -244,8 +247,9 @@ const HomeScreen = () => {
         style={{ paddingBottom: Math.max(insets.bottom, 20), paddingTop: 10 }}
       >
         <TabItem name="Home" icon="home" label="Home" />
-        <TabItem name="Activity" icon="list" label="Activity" />
+        {/* <TabItem name="Activity" icon="list" label="Activity" /> */}
         <TabItem name="Booking" icon="calendar" label="Booking" />
+        <TabItem name="Rent" icon="car-sport" label="Rent" />
         <TabItem name="Profile" icon="person" label="Profile" />
       </View>
 
