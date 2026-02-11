@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 // ================= SIGNUP =================
 export const signup = async (req, res) => {
+  console.log("sign up started");
   try {
     const { name, mobile, password } = req.body;
 
@@ -46,7 +47,7 @@ export const signup = async (req, res) => {
 };
 
 // ================= LOGIN =================
-export const signin = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { mobile, password } = req.body;
 
@@ -82,13 +83,61 @@ export const signin = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        mobile: user.mobile
+        mobile: user.mobile,
+        email: user.email || "",
+        gender: user.gender || "",
       }
     });
 
   } catch (error) {
     res.status(500).json({
       message: "Login failed",
+      error: error.message
+    });
+  }
+};
+
+
+export const updateProfile = async (req, res) => {
+  console.log("updation start")
+  try {
+    const userId = req.user._id; // from auth middleware
+    const { name, email, gender } = req.body;
+
+    const allowedGenders = ["male", "female", "other"];
+
+    if (gender && !allowedGenders.includes(gender)) {
+      return res.status(400).json({
+        message: "Invalid gender value"
+      });
+    }
+
+    const updateData = {};
+
+    if (name) updateData.name = name;
+    if (email) updateData.email = email;
+    if (gender) updateData.gender = gender;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      updateData,
+      { new: true, runValidators: true }
+    );
+
+    res.json({
+      message: "Profile updated successfully",
+      user: {
+        id: updatedUser._id,
+        name: updatedUser.name,
+        mobile: updatedUser.mobile,
+        email: updatedUser.email,
+        gender: updatedUser.gender
+      }
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Profile update failed",
       error: error.message
     });
   }

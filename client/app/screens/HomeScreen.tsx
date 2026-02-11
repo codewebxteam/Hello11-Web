@@ -20,6 +20,8 @@ import { StatusBar } from 'expo-status-bar';
 import ProfileScreen from "./ProfileScreen";
 import SearchingRideOverlay from "../../components/SearchingRideOverlay";
 import DriverAssignedOverlay from "../../components/DriverAssignedOverlay";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 
 const { width, height } = Dimensions.get('window');
@@ -28,7 +30,8 @@ const { width, height } = Dimensions.get('window');
 const HomeScreen = () => {
   const params = useLocalSearchParams();
   const router = useRouter(); // router initialize kiya
-  const displayName = params.userName || "Shiv";
+  // const displayName = params.userName || "Shiv";
+  const [displayName, setDisplayName] = useState("Shiv")
 
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");
@@ -41,8 +44,22 @@ const HomeScreen = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
   const scrollViewRef = useRef<ScrollView>(null);
+  
 
   // --- DOUBLE BACK PRESS TO EXIT LOGIC ---
+
+  useEffect(() => {
+  const loadUser = async () => {
+    const storedUser = await AsyncStorage.getItem("user");
+
+        if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setDisplayName(parsedUser.name);
+        }
+  };
+  loadUser();
+}, []);
+
   useEffect(() => {
     let backPressCount = 0;
 

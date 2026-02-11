@@ -13,6 +13,8 @@ import {
 import { useRouter, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import { loginUser } from "../apis/authApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 const isTablet = width > 768; // Tablet detection logic
@@ -24,16 +26,46 @@ const LoginScreen = () => {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!phoneNumber || !password) {
       Alert.alert("Access Denied", "Please verify your security keys.");
       return;
     }
-    if (phoneNumber.length < 10 || phoneNumber.length > 10) {
-      Alert.alert("Error", "Please enter valid Mobile number");
+    if (phoneNumber.length !== 10) {
+      Alert.alert("Error", "Enter valid 10 digit mobile number");
       return;
     }
-    router.push("/screens/HomeScreen");
+
+    try {
+      const response = await loginUser({
+        mobile: phoneNumber,
+        password,
+      });
+
+      const { token, user } = response.data;
+
+      if (!token) {
+        Alert.alert("Error", "Token not received from server");
+        return;
+      }
+
+      // 🔥 Store token securely
+      await AsyncStorage.setItem("token", token);
+
+      // Optional: store user data
+      await AsyncStorage.setItem("user", JSON.stringify(user));
+
+      Alert.alert("Success", "Login successful");
+
+      router.replace("/screens/HomeScreen");
+      // router.push("/screens/HomeScreen");
+    } catch (error: any) {
+      if (error.response) {
+        Alert.alert("Error", error.response.data.message);
+      } else {
+        Alert.alert("Error", "Network error");
+      }
+    }
   };
 
   return (

@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import {registerUser} from "../apis/authApi"
 
 const { width, height } = Dimensions.get('window');
 const isTablet = width > 768;
@@ -27,27 +28,46 @@ const RegisterScreen = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const router = useRouter();
 
-  const handleRegister = () => {
-    if (!name || !phoneNumber || !password) {
-      Alert.alert("Attention", "Please fill all fields correctly.");
-      return;
+const handleRegister = async () => {
+  if (!name || !phoneNumber || !password || !confirmPassword) {
+    Alert.alert("Error", "Please fill all fields");
+    return;
+  }
+
+  if (phoneNumber.length !== 10) {
+    Alert.alert("Error", "Enter valid 10 digit mobile number");
+    return;
+  }
+
+  if (password.length < 6) {
+    Alert.alert("Error", "Password must be at least 6 characters");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    Alert.alert("Error", "Passwords do not match");
+    return;
+  }
+
+  try {
+    const response = await registerUser({
+      name,
+      mobile: phoneNumber, 
+      password,
+    });
+
+    Alert.alert("Success", response.data.message);
+
+    router.replace("/screens/LoginScreen");
+
+  } catch (error:any) {
+    if (error.response) {
+      Alert.alert("Error", error.response.data.message);
+    } else {
+      Alert.alert("Error", "Network error");
     }
-    if(phoneNumber.length < 10 ||  phoneNumber.length>10){
-      Alert.alert("Error", "Please enter valid Mobile number")
-      return;
-    }
-    if(password.length<6){
-      Alert.alert("Error", "Passwords must be at least 6 character long");
-      return;
-    }
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match!");
-      return;
-    }
-    
-    Alert.alert("Success", `Welcome ${name}! Account created successfully!`);
-    router.push({ pathname: "/screens/HomeScreen", params: { userName: name } });
-  };
+  }
+};
 
   return (
     <View className="flex-1 bg-white">

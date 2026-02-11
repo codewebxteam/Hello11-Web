@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/User/userRoutes.js"
 
 const app = express();
 
@@ -10,6 +11,11 @@ app.use(express.json());
 
 // routes
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+
+app.patch("/api/user", (req, res)=>{
+  res.send("hello");
+});
 
 // root test route
 app.get("/", (req, res) => {
