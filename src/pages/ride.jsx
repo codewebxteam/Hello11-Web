@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, ArrowRight, Clock, ChevronRight } from 'lucide-react';
+import { MapPin, Navigation, User, Calendar, ArrowRight, ChevronRight } from 'lucide-react';
+
+const WA = '918878139942';
 
 // --- IMAGES IMPORT ---
 import car1 from '../assets/cars/car1.webp';
@@ -15,7 +17,7 @@ const rideCategories = [
     id: 'local',
     title: "Local Ride",
     desc: "Within Khalilabad City",
-    img: car1, 
+    img: car1,
     price: "Starts @ ₹199",
     color: "from-yellow-400 to-yellow-600"
   },
@@ -39,6 +41,27 @@ const rideCategories = [
 
 const Ride = () => {
   const [selected, setSelected] = useState('local');
+  const [name, setName] = useState('');
+  const [pickup, setPickup] = useState('');
+  const [drop, setDrop] = useState('');
+  const [date, setDate] = useState('');
+
+  const handleBookRide = () => {
+    if (!name || !pickup || !drop) {
+      alert('Please fill in Name, Pickup, and Drop.');
+      return;
+    }
+    const pkg = selected.charAt(0).toUpperCase() + selected.slice(1);
+    const msg =
+      `🚖 *${pkg} Ride Booking*\n\n` +
+      `👤 *Name:* ${name}\n` +
+      `📍 *Pickup:* ${pickup}\n` +
+      `🏁 *Drop:* ${drop}\n` +
+      (date ? `📅 *Date:* ${date}\n` : '') +
+      `🚗 *Package:* ${pkg}\n\n` +
+      `Hello11 Team, please confirm my booking.`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
 
   const getHeroImage = () => {
     if (selected === 'local') return car4;
@@ -49,7 +72,7 @@ const Ride = () => {
   return (
     <div className="bg-[#f8f9fa] min-h-screen pt-20 md:pt-32 pb-10 px-3 md:px-6">
       <div className="container mx-auto max-w-6xl">
-        
+
         {/* Header */}
         <div className="mb-8 md:mb-12 px-2">
           <div className="flex items-center gap-2 mb-2">
@@ -70,11 +93,10 @@ const Ride = () => {
               key={cat.id}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelected(cat.id)}
-              className={`relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 cursor-pointer transition-all duration-500 border-2 ${
-                selected === cat.id 
-                ? 'border-yellow-400 bg-white shadow-xl translate-y-[-5px]' 
+              className={`relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 cursor-pointer transition-all duration-500 border-2 ${selected === cat.id
+                ? 'border-yellow-400 bg-white shadow-xl translate-y-[-5px]'
                 : 'border-gray-100 bg-white hover:border-yellow-200'
-              }`}
+                }`}
             >
               <div className="relative z-10">
                 <h3 className={`text-xl md:text-2xl font-black italic uppercase tracking-tight ${selected === cat.id ? 'text-black' : 'text-gray-400'}`}>
@@ -87,12 +109,11 @@ const Ride = () => {
               </div>
 
               {/* Background Car Image */}
-              <motion.img 
-                src={cat.img} 
+              <motion.img
+                src={cat.img}
                 alt={cat.title}
-                className={`absolute bottom-[-10px] md:bottom-0 -right-4 w-32 md:w-48 h-auto object-contain transition-all duration-700 pointer-events-none ${
-                  selected === cat.id ? 'opacity-100 scale-110' : 'opacity-10 grayscale'
-                }`}
+                className={`absolute bottom-[-10px] md:bottom-0 -right-4 w-32 md:w-48 h-auto object-contain transition-all duration-700 pointer-events-none ${selected === cat.id ? 'opacity-100 scale-110' : 'opacity-10 grayscale'
+                  }`}
               />
             </motion.div>
           ))}
@@ -102,14 +123,14 @@ const Ride = () => {
         <div className="bg-black rounded-[2.5rem] md:rounded-[4rem] p-6 md:p-16 relative overflow-hidden shadow-2xl">
           {/* Subtle Glow Effect */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
-            
+
             {/* Left: Car Display */}
             <div className="relative h-48 md:h-80 flex items-center justify-center order-2 lg:order-1">
               <div className="absolute inset-0 bg-yellow-400/5 blur-[80px] rounded-full" />
               <AnimatePresence mode="wait">
-                <motion.img 
+                <motion.img
                   key={selected}
                   initial={{ x: 30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -134,38 +155,39 @@ const Ride = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-3">
-                  <div className="flex items-center gap-4 bg-white/5 p-4 md:p-5 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
-                    <MapPin className="text-yellow-400" size={18} />
-                    <input 
-                      type="text" 
-                      placeholder="Pickup Point" 
-                      className="bg-transparent border-none outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium"
-                    />
+                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
+                    <User className="text-yellow-400 shrink-0" size={17} />
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your Name" className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium" />
                   </div>
-                  <div className="flex items-center gap-4 bg-white/5 p-4 md:p-5 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
-                    <Clock className="text-yellow-400" size={18} />
-                    <input 
-                      type="text" 
-                      placeholder="Pickup Time" 
-                      className="bg-transparent border-none outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium"
-                    />
+                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
+                    <MapPin className="text-yellow-400 shrink-0" size={17} />
+                    <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Pickup Point" className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium" />
+                  </div>
+                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
+                    <Navigation className="text-yellow-400 shrink-0" size={17} />
+                    <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Drop Point" className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium" />
+                  </div>
+                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
+                    <Calendar className="text-yellow-400 shrink-0" size={17} />
+                    <input type="date" value={date} onChange={e => setDate(e.target.value)} className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium appearance-none" style={{ colorScheme: 'dark' }} />
                   </div>
                 </div>
               </div>
 
-              <motion.button 
+              <motion.button
+                onClick={handleBookRide}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-yellow-400 py-5 md:py-7 rounded-[1.5rem] md:rounded-2xl text-black font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl hover:bg-white transition-all duration-300 group"
               >
-                Confirm {selected} Ride 
+                Confirm {selected} Ride
                 <ArrowRight size={20} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
               </motion.button>
-              
+
               <div className="flex items-center justify-center gap-6 text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">
-                 <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400"/> Instant</span>
-                 <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400"/> Secure</span>
-                 <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400"/> 24/7</span>
+                <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400" /> Instant</span>
+                <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400" /> Secure</span>
+                <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400" /> 24/7</span>
               </div>
             </div>
 
