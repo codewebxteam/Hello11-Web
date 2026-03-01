@@ -3,7 +3,7 @@ import { Phone, MessageCircle, MapPin, Search, User, Car } from 'lucide-react';
 import bgVideo from '../../assets/cars/bgcar.mp4';
 import { useBooking } from '../../context/BookingContext';
 
-const WA = '918878139942';
+const WA = '919955982260';
 
 const Hero = () => {
   const [name, setName] = useState('');
@@ -82,7 +82,7 @@ const Hero = () => {
                   <MessageCircle size={20} />
                   Chat on WhatsApp
                 </button>
-                <a href="tel:+918878139942" className="flex items-center justify-center gap-3 bg-white/5 backdrop-blur-md text-white px-8 py-4 rounded-xl font-bold border border-white/10 hover:bg-white/10 transition-all">
+                <a href="tel:+919955982260" className="flex items-center justify-center gap-3 bg-white/5 backdrop-blur-md text-white px-8 py-4 rounded-xl font-bold border border-white/10 hover:bg-white/10 transition-all">
                   <Phone size={20} className="text-yellow-400" />
                   Quick Call
                 </a>

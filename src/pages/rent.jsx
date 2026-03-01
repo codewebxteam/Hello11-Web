@@ -9,7 +9,7 @@ import car4 from '../assets/cars/car4.webp';
 import car5 from '../assets/cars/car5.webp';
 import car6 from '../assets/cars/car6.webp';
 
-const WA = '918878139942';
+const WA = '919955982260';
 
 const cars = [
   { id: 1, name: "Swift Dzire", price: "1800", img: car1, seats: "5", fuel: "CNG/Pet", gear: "Manual" },

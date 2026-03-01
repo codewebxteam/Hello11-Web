@@ -107,11 +107,11 @@ const Booking = () => {
         {/* Call CTA */}
         <div className="mt-12 flex flex-col items-center justify-center gap-4">
           <p className="text-gray-600 text-[11px] font-black uppercase tracking-[0.3em]">Direct Support</p>
-          <a href="tel:+918878139942" className="flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full group hover:border-yellow-400/30 transition-all">
+          <a href="tel:+919955982260" className="flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full group hover:border-yellow-400/30 transition-all">
             <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-black group-hover:scale-110 transition-transform">
               <Phone size={18} fill="currentColor" />
             </div>
-            <h4 className="text-white font-black text-xl md:text-2xl tracking-tighter">+91 8878139942</h4>
+            <h4 className="text-white font-black text-xl md:text-2xl tracking-tighter">+91 9955982260</h4>
           </a>
         </div>
       </div>
