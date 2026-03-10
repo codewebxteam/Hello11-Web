@@ -1,9 +1,9 @@
 import React from 'react';
-import { MapPin, Navigation, ArrowRight, CheckCircle2, Phone, Calendar, User, Car } from 'lucide-react';
+import { MapPin, Navigation, ArrowRight, CheckCircle2, Phone, Calendar, User, Car, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useBooking } from '../../context/BookingContext';
 
-const WA = '919955982260';
+const WA = '919628911211';
 
 const Booking = () => {
   const { selectedCar, setSelectedCar } = useBooking();
@@ -104,15 +104,29 @@ const Booking = () => {
           </div>
         </div>
 
-        {/* Call CTA */}
-        <div className="mt-12 flex flex-col items-center justify-center gap-4">
-          <p className="text-gray-600 text-[11px] font-black uppercase tracking-[0.3em]">Direct Support</p>
-          <a href="tel:+919955982260" className="flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full group hover:border-yellow-400/30 transition-all">
-            <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-black group-hover:scale-110 transition-transform">
-              <Phone size={18} fill="currentColor" />
-            </div>
-            <h4 className="text-white font-black text-xl md:text-2xl tracking-tighter">+91 9955982260</h4>
-          </a>
+        {/* Modern CTA Block */}
+        <div className="mt-16 bg-[#0a0a0a] rounded-[2.5rem] p-8 md:p-14 text-center border border-white/5 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-1/2 translate-x-1/2 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
+          <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 relative z-10">Don't Want to Wait?</p>
+          <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-8 relative z-10">
+            Book <span className="text-yellow-400">Instantly</span>
+          </h3>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+            <a
+              href={`https://wa.me/${WA}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+            >
+              <MessageCircle size={20} /> Chat on WhatsApp
+            </a>
+            <a
+              href="tel:+919628911211"
+              className="flex items-center justify-center gap-3 bg-white/5 text-white px-8 py-4 rounded-2xl font-bold border border-white/10 hover:bg-white/10 transition-all text-sm uppercase tracking-wider"
+            >
+              <Phone size={20} className="text-yellow-400" /> Call +91 96289 11211
+            </a>
+          </div>
         </div>
       </div>
 

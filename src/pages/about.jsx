@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Target, Award } from 'lucide-react';
+import { ShieldCheck, Target, Award, Phone, MessageCircle } from 'lucide-react';
 
 // --- IMAGE IMPORT ---
 import ownerImg from '../assets/owner/owner.webp';
@@ -9,13 +9,13 @@ const About = () => {
   return (
     <div className="bg-[#f8f9fa] min-h-screen pt-20 md:pt-32 pb-20 px-4 md:px-6">
       <div className="container mx-auto max-w-6xl">
-        
+
         {/* Story Section & Owner Image */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20 md:mb-32">
-          
+
           {/* LEFT: Text Content - High Z-Index to stay on top */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }} 
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative z-20 order-2 lg:order-1"
@@ -31,9 +31,9 @@ const About = () => {
               "Hello11 is not just a taxi service; it's a promise of safety and punctuality that started in the heart of Sant Kabir Nagar."
             </p>
           </motion.div>
-          
+
           {/* RIGHT: Owner Image Frame */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -41,14 +41,14 @@ const About = () => {
           >
             {/* Image Frame with Yellow Border */}
             <div className="aspect-[4/5] md:aspect-square lg:aspect-[4/5] bg-white border-2 border-yellow-400 rounded-[2.5rem] md:rounded-[3rem] relative overflow-hidden group shadow-2xl">
-              <img 
-                src={ownerImg} 
-                className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700" 
-                alt="Hello11 Owner" 
+              <img
+                src={ownerImg}
+                className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+                alt="Hello11 Owner"
               />
               {/* Gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-              
+
               <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
                 <p className="text-white font-black italic text-3xl md:text-5xl leading-none">10+ YEARS</p>
                 <p className="text-yellow-400 font-bold tracking-widest text-[9px] md:text-[10px] uppercase mt-1">Of Trust in UP & Bihar</p>
@@ -64,7 +64,7 @@ const About = () => {
             { icon: <Target className="text-black" />, title: "Precision", desc: "We value your time. 99% of our rides arrive 5 mins before time." },
             { icon: <Award className="text-black" />, title: "Elite Quality", desc: "From smell to comfort, every car passes a 20-point check daily." }
           ].map((item, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +82,7 @@ const About = () => {
         </div>
 
         {/* Mission Statement */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -92,6 +92,40 @@ const About = () => {
           <p className="text-gray-600 font-medium text-xl md:text-3xl max-w-3xl mx-auto leading-tight uppercase tracking-tighter italic relative z-10">
             "Our mission is to make premium travel <span className="text-black font-black underline decoration-yellow-400 decoration-4 underline-offset-8">affordable</span> for every family in Khalilabad."
           </p>
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 md:mt-24 bg-black rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-14 text-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-400/5 blur-[80px] rounded-full" />
+          <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3">Get In Touch</p>
+          <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-3">
+            Travel with <span className="text-yellow-400">Hello11</span>
+          </h3>
+          <p className="text-gray-500 text-sm md:text-base mb-8 max-w-md mx-auto">
+            Premium rides, trusted drivers, and unmatched comfort — all at your fingertips.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://wa.me/919628911211"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+            >
+              <MessageCircle size={20} /> Book on WhatsApp
+            </a>
+            <a
+              href="tel:+919628911211"
+              className="flex items-center justify-center gap-3 bg-white/10 text-white px-8 py-4 rounded-2xl font-bold border border-white/20 hover:bg-white/20 transition-all text-sm uppercase tracking-wider"
+            >
+              <Phone size={20} className="text-yellow-400" /> Call +91 96289 11211
+            </a>
+          </div>
         </motion.div>
 
       </div>

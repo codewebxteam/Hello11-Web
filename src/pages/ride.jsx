@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Navigation, User, Calendar, ArrowRight, ChevronRight } from 'lucide-react';
+import { MapPin, Navigation, User, Calendar, ArrowRight, ChevronRight, Phone, MessageCircle } from 'lucide-react';
 
-const WA = '919955982260';
+const WA = '919628911211';
 
 // --- IMAGES IMPORT ---
 import car1 from '../assets/cars/car1.webp';
@@ -29,14 +29,6 @@ const rideCategories = [
     price: "Starts @ ₹9/km",
     color: "from-black to-gray-800"
   },
-  {
-    id: 'hourly',
-    title: "Hourly Rental",
-    desc: "Book for 4, 8, or 12 hours",
-    img: car3,
-    price: "Starts @ ₹899",
-    color: "from-yellow-500 to-orange-500"
-  }
 ];
 
 const Ride = () => {
@@ -64,9 +56,8 @@ const Ride = () => {
   };
 
   const getHeroImage = () => {
-    if (selected === 'local') return car4;
     if (selected === 'outstation') return car5;
-    return car6;
+    return car4;
   };
 
   return (
@@ -87,7 +78,7 @@ const Ride = () => {
         </div>
 
         {/* Category Selector */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-8 md:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-8 md:mb-16">
           {rideCategories.map((cat) => (
             <motion.div
               key={cat.id}
@@ -108,13 +99,16 @@ const Ride = () => {
                 </div>
               </div>
 
-              {/* Background Car Image */}
-              <motion.img
-                src={cat.img}
-                alt={cat.title}
-                className={`absolute bottom-[-10px] md:bottom-0 -right-4 w-32 md:w-48 h-auto object-contain transition-all duration-700 pointer-events-none ${selected === cat.id ? 'opacity-100 scale-110' : 'opacity-10 grayscale'
-                  }`}
-              />
+              {/* Background Car Image + Shadow */}
+              <div className="absolute bottom-[-10px] md:bottom-2 -right-4 flex flex-col items-end">
+                <motion.img
+                  src={cat.img}
+                  alt={cat.title}
+                  className={`w-32 md:w-48 h-auto object-contain transition-all duration-700 pointer-events-none ${selected === cat.id ? 'opacity-100 scale-110' : 'opacity-10 grayscale'
+                    }`}
+                />
+                <div className={`cat-car-shadow transition-all duration-700 ${selected === cat.id ? 'opacity-100 scale-110' : 'opacity-0'}`} />
+              </div>
             </motion.div>
           ))}
         </div>
@@ -127,18 +121,44 @@ const Ride = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
 
             {/* Left: Car Display */}
-            <div className="relative h-48 md:h-80 flex items-center justify-center order-2 lg:order-1">
+            <div className="relative h-48 md:h-80 flex flex-col items-center justify-center order-2 lg:order-1">
+              <style dangerouslySetInnerHTML={{
+                __html: `
+                .ride-road-shadow {
+                  width: 95%;
+                  height: 40px;
+                  background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 90%);
+                  border-radius: 50%;
+                  margin-top: -85px;
+                  flex-shrink: 0;
+                  filter: blur(6px);
+                }
+                .cat-car-shadow {
+                  width: 85%;
+                  height: 20px;
+                  background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, transparent 85%);
+                  border-radius: 50%;
+                  margin-top: -15px;
+                  margin-left: auto;
+                  filter: blur(3px);
+                }
+              `}} />
               <div className="absolute inset-0 bg-yellow-400/5 blur-[80px] rounded-full" />
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                   key={selected}
                   initial={{ x: 30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -30, opacity: 0 }}
                   transition={{ duration: 0.5, ease: "circOut" }}
-                  src={getHeroImage()}
-                  className="w-full h-full object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                />
+                  className="w-full h-full flex flex-col items-center justify-center"
+                >
+                  <img
+                    src={getHeroImage()}
+                    className="w-full h-full object-contain relative z-10"
+                  />
+                  <div className="ride-road-shadow relative z-0" />
+                </motion.div>
               </AnimatePresence>
             </div>
 
@@ -191,6 +211,31 @@ const Ride = () => {
               </div>
             </div>
 
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-12 md:mt-16 bg-black rounded-[2.5rem] p-8 md:p-12 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
+          <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3">Ready to Go?</p>
+          <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-6">
+            Book Your <span className="text-yellow-400">Ride Now</span>
+          </h3>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={`https://wa.me/${WA}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+            >
+              <MessageCircle size={20} /> Chat on WhatsApp
+            </a>
+            <a
+              href="tel:+919628911211"
+              className="flex items-center justify-center gap-3 bg-white/5 text-white px-8 py-4 rounded-2xl font-bold border border-white/10 hover:bg-white/10 transition-all text-sm uppercase tracking-wider"
+            >
+              <Phone size={20} className="text-yellow-400" /> Call +91 96289 11211
+            </a>
           </div>
         </div>
 

@@ -1,92 +1,136 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, Car, Key, User, Phone } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/hello11.logo-2.png';
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [navVisible, setNavVisible] = useState(true);
+  const observerRef = useRef(null);
 
   // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Hide bottom nav when footer is in view
+  useEffect(() => {
+    // Add small delay to ensure footer has rendered after route changes
+    const timer = setTimeout(() => {
+      const footer = document.querySelector('footer');
+      if (!footer) return;
+
+      observerRef.current = new IntersectionObserver(
+        ([entry]) => {
+          setNavVisible(!entry.isIntersecting);
+        },
+        { root: null, rootMargin: '0px', threshold: 0 }
+      );
+
+      observerRef.current.observe(footer);
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (observerRef.current) observerRef.current.disconnect();
+    };
+  }, [location.pathname]);
+
   const navItems = [
-    { name: 'Home', path: '/', icon: <Home size={20} /> },
-    { name: 'Ride', path: '/ride', icon: <Car size={20} /> },
-    { name: 'Rent', path: '/rent', icon: <Key size={20} /> },
-    { name: 'About', path: '/about', icon: <User size={20} /> },
+    { name: 'Home', path: '/', icon: <Home size={22} strokeWidth={1.8} /> },
+    { name: 'Ride', path: '/ride', icon: <Car size={22} strokeWidth={1.8} /> },
+    { name: 'Rent', path: '/rent', icon: <Key size={22} strokeWidth={1.8} /> },
+    { name: 'About', path: '/about', icon: <User size={22} strokeWidth={1.8} /> },
   ];
 
   return (
     <>
-      {/* --- TOP BAR: BRANDING --- */}
-      <header className="fixed top-0 w-full z-[60] px-6 py-5 pointer-events-none">
-        <div className="container mx-auto flex justify-between items-center bg-black/40 backdrop-blur-xl border border-white/5 p-3 px-6 rounded-2xl shadow-2xl pointer-events-auto">
-          <motion.div 
+      {/* ── TOP HEADER ── */}
+      <header className="fixed top-0 w-full z-[60] px-4 py-3 md:px-6 md:py-4 pointer-events-none">
+        <div className="container mx-auto flex justify-between items-center bg-gradient-to-r from-yellow-400/90 to-yellow-400/90 backdrop-blur-xl border border-yellow-300/50 p-2.5 px-4 md:p-3 md:px-6 rounded-2xl shadow-[0_10px_30px_rgba(250,204,21,0.2)] pointer-events-auto">
+          <motion.div
             whileTap={{ scale: 0.95 }}
-            className="text-2xl font-black tracking-[-0.1em] text-white italic cursor-pointer group"
+            className="cursor-pointer"
             onClick={() => navigate('/')}
           >
-            HELLO <span className="text-yellow-400 group-hover:text-white transition-colors duration-300">11</span>
+            <img src={logo} alt="Hello11" className="h-8 md:h-10 w-auto object-contain drop-shadow-md" />
           </motion.div>
-          
-          <motion.a 
-            whileHover={{ scale: 1.05, backgroundColor: '#ffffff', color: '#000000' }}
+
+          <motion.a
+            whileHover={{ scale: 1.05, backgroundColor: '#222' }}
             whileTap={{ scale: 0.95 }}
-            href="tel:+91XXXXXXXXXX" 
-            className="flex items-center gap-2 bg-yellow-400 px-4 py-2 rounded-xl text-black font-black text-[10px] uppercase tracking-tighter shadow-[0_0_20px_rgba(250,204,21,0.3)] transition-all duration-300"
+            href="tel:+919628911211"
+            className="flex items-center gap-2 bg-black px-4 py-2 rounded-xl text-yellow-400 font-black text-[11px] uppercase tracking-wider shadow-[0_5px_15px_rgba(0,0,0,0.3)] transition-all duration-300"
           >
-            <Phone size={14} fill="currentColor" /> Call Now
+            <Phone size={13} fill="currentColor" /> Call Now
           </motion.a>
         </div>
       </header>
 
-      {/* --- BOTTOM BAR: NAVIGATION --- */}
-      <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-[400px]">
-        <div className="relative bg-[#0c0c0c]/90 backdrop-blur-3xl rounded-[2.5rem] p-1.5 shadow-[0_25px_50px_rgba(0,0,0,0.9)] border border-white/10 flex justify-between items-center px-1">
-          
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            
-            return (
-              <button
-                key={item.name}
-                onClick={() => navigate(item.path)}
-                className={`relative flex flex-col items-center gap-1 py-3.5 px-1 flex-1 transition-all duration-500 rounded-2xl ${
-                  isActive ? 'text-black' : 'text-gray-500 hover:text-white'
-                }`}
-              >
-                {/* Active Pill (The Yellow Highlight) */}
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-active-pill"
-                    className="absolute inset-0 bg-yellow-400 rounded-[1.8rem] shadow-[0_0_30px_rgba(250,204,21,0.5)]"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
+      {/* ── BOTTOM NAVIGATION ── */}
+      <AnimatePresence>
+        {navVisible && (
+          <motion.nav
+            key="bottom-nav"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-[420px]"
+          >
+            {/* Outer glow ring */}
+            <div className="absolute inset-0 rounded-[2.8rem] bg-yellow-400/10 blur-xl pointer-events-none" />
 
-                {/* Visual Content */}
-                <span className="relative z-10">
-                  {item.icon}
-                </span>
-                <span className={`relative z-10 text-[8px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
-                  isActive ? 'opacity-100 scale-110' : 'opacity-50 scale-100'
-                }`}>
-                  {item.name}
-                </span>
-              </button>
-            );
-          })}
+            <div className="relative bg-[#0a0a0a] backdrop-blur-3xl rounded-[2.8rem] border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] flex justify-between items-center p-1.5 px-2 gap-1 overflow-hidden">
 
-          {/* Top Decorative Glow Line */}
-          <div className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-16 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent shadow-[0_0_15px_#facc15]" />
-        </div>
-      </nav>
+              {/* Subtle inner gradient */}
+              <div className="absolute inset-0 rounded-[2.8rem] bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
 
-      {/* Desktop/Layout Spacer */}
-      <div className="h-24 md:h-0" />
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => navigate(item.path)}
+                    className={`relative flex flex-col items-center gap-1 py-3 flex-1 transition-all duration-400 rounded-[2.2rem] z-10 ${isActive ? 'text-black' : 'text-gray-600 hover:text-gray-300'
+                      }`}
+                  >
+                    {/* Active background pill */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 rounded-[2.2rem] bg-gradient-to-b from-yellow-300 to-yellow-500 shadow-[0_0_20px_rgba(250,204,21,0.6),0_4px_12px_rgba(250,204,21,0.3)]"
+                        transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                      />
+                    )}
+
+                    {/* Hover glow for inactive */}
+                    {!isActive && (
+                      <div className="absolute inset-0 rounded-[2.2rem] bg-white/0 hover:bg-white/[0.04] transition-colors duration-300" />
+                    )}
+
+                    <span className={`relative z-10 transition-transform duration-300 ${isActive ? 'scale-110' : 'scale-100'}`}>
+                      {item.icon}
+                    </span>
+                    <span className={`relative z-10 text-[8px] font-black uppercase tracking-[0.18em] transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-40'
+                      }`}>
+                      {item.name}
+                    </span>
+                  </button>
+                );
+              })}
+
+              {/* Top glow accent line */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[1.5px] bg-gradient-to-r from-transparent via-yellow-400/70 to-transparent" />
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
+      {/* No spacer needed — each page has its own top padding */}
     </>
   );
 };

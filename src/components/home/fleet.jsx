@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Users, Wind, ArrowUpRight, IndianRupee, ChevronRight, ChevronLeft, Fuel } from 'lucide-react';
 import { useBooking } from '../../context/BookingContext';
 
@@ -10,12 +10,12 @@ import car5 from '../../assets/cars/car5.webp';
 import car6 from '../../assets/cars/car6.webp';
 
 const cars = [
-  { id: 1, name: "Innova Crysta", type: "LUXURY MPV", img: car1, rate: "18", seats: "7+1", ac: "Dual Chill", fuel: "Diesel" },
-  { id: 2, name: "Hyundai Aura", type: "PREMIUM SEDAN", img: car2, rate: "12", seats: "4+1", ac: "Climate", fuel: "CNG/Petrol" },
-  { id: 3, name: "Maruti Swift", type: "ECONOMY HATCH", img: car3, rate: "10", seats: "4+1", ac: "Manual", fuel: "Petrol" },
-  { id: 4, name: "Mahindra Scorpio", type: "POWER SUV", img: car4, rate: "16", seats: "6+1", ac: "Powerful", fuel: "Diesel" },
-  { id: 5, name: "Hyundai i10", type: "CITY COMPACT", img: car5, rate: "9", seats: "4+1", ac: "Standard", fuel: "Petrol" },
-  { id: 6, name: "Mahindra Bolero", type: "RUGGED MUV", img: car6, rate: "13", seats: "6+1", ac: "Powerful", fuel: "Diesel" },
+  { id: 1, name: "Innova Crysta", type: "LUXURY MPV", img: car1, rate: "18", seats: "7+1", ac: "Dual Chill", fuel: "Diesel", darkBg: false },
+  { id: 2, name: "Hyundai Aura", type: "PREMIUM SEDAN", img: car2, rate: "12", seats: "4+1", ac: "Climate", fuel: "CNG/Petrol", darkBg: false },
+  { id: 3, name: "Maruti Swift", type: "ECONOMY HATCH", img: car3, rate: "10", seats: "4+1", ac: "Manual", fuel: "Petrol", darkBg: false },
+  { id: 4, name: "Mahindra Scorpio", type: "POWER SUV", img: car4, rate: "16", seats: "6+1", ac: "Powerful", fuel: "Diesel", darkBg: true },
+  { id: 5, name: "Hyundai i10", type: "CITY COMPACT", img: car5, rate: "9", seats: "4+1", ac: "Standard", fuel: "Petrol", darkBg: false },
+  { id: 6, name: "Mahindra Bolero", type: "RUGGED MUV", img: car6, rate: "13", seats: "6+1", ac: "Powerful", fuel: "Diesel", darkBg: true },
 ];
 
 const Fleet = () => {
@@ -31,6 +31,17 @@ const Fleet = () => {
       scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const interval = setInterval(() => {
+      const { scrollLeft, scrollWidth, clientWidth } = el;
+      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 10;
+      el.scrollTo({ left: isAtEnd ? 0 : scrollLeft + clientWidth / 1.5, behavior: 'smooth' });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSelectCar = (car) => {
     // Store car name in context
@@ -50,7 +61,29 @@ const Fleet = () => {
         __html: `
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .car-floating-shadow { filter: drop-shadow(0 35px 25px rgba(0,0,0,0.25)); }
+        .car-floating-shadow { filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2)); }
+        .car-road-shadow {
+          width: 90%;
+          height: 35px;
+          background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 85%);
+          border-radius: 50%;
+          margin-top: -55px;
+          margin-left: auto;
+          margin-right: auto;
+          flex-shrink: 0;
+          filter: blur(4px);
+        }
+        .car-road-shadow-yellow {
+          width: 90%;
+          height: 35px;
+          background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 85%);
+          border-radius: 50%;
+          margin-top: -55px;
+          margin-left: auto;
+          margin-right: auto;
+          flex-shrink: 0;
+          filter: blur(4px);
+        }
       `}} />
 
       {/* Header */}
@@ -81,12 +114,14 @@ const Fleet = () => {
 
             <div className="relative z-10 p-5 md:p-8 flex flex-col h-full">
               {/* Car Image */}
-              <div className="relative h-36 md:h-52 flex items-center justify-center -mt-16 mb-2">
+              <div className="relative flex flex-col items-center justify-end -mt-16 mb-2">
                 <img
                   src={car.img}
                   alt={car.name}
-                  className="w-full h-full object-contain car-floating-shadow transform transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-36 md:h-48 object-contain car-floating-shadow transform transition-transform duration-500 group-hover:scale-105"
                 />
+                {/* Road shadow */}
+                <div className={car.darkBg ? 'car-road-shadow-yellow' : 'car-road-shadow'} />
               </div>
 
               {/* Tag & ID */}
