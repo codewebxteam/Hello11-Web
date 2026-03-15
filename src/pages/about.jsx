@@ -40,7 +40,7 @@ const About = () => {
             className="relative z-10 order-1 lg:order-2"
           >
             {/* Image Frame with Yellow Border */}
-            <div className="aspect-[4/5] md:aspect-square lg:aspect-[4/5] bg-white border-2 border-yellow-400 rounded-[2.5rem] md:rounded-[3rem] relative overflow-hidden group shadow-2xl">
+            <div className="aspect-[4/5] md:aspect-square lg:aspect-[4/5] bg-white border-2 border-yellow-400 rounded-[2.5rem] md:rounded-[3rem] relative overflow-hidden group">
               <img
                 src={ownerImg}
                 className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
@@ -60,9 +60,9 @@ const About = () => {
         {/* Values Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {[
-            { icon: <ShieldCheck className="text-black" />, title: "Safety First", desc: "Every driver is background verified and trained for long routes." },
-            { icon: <Target className="text-black" />, title: "Precision", desc: "We value your time. 99% of our rides arrive 5 mins before time." },
-            { icon: <Award className="text-black" />, title: "Elite Quality", desc: "From smell to comfort, every car passes a 20-point check daily." }
+            { icon: <ShieldCheck />, title: "Safety First", desc: "Every driver is background verified and trained for long routes." },
+            { icon: <Target />, title: "Precision", desc: "We value your time. 99% of our rides arrive 5 mins before time." },
+            { icon: <Award />, title: "Elite Quality", desc: "From smell to comfort, every car passes a 20-point check daily." }
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -70,10 +70,10 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border-2 border-yellow-400 shadow-lg flex flex-col items-center text-center group transition-all"
+              className="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border-2 border-yellow-400 flex flex-col items-center text-center group transition-all"
             >
-              <div className="mb-6 p-4 bg-yellow-400 rounded-2xl group-hover:bg-black group-hover:text-yellow-400 transition-colors shadow-md">
-                {item.icon}
+              <div className="mb-6 p-4 bg-yellow-400 text-black rounded-2xl group-hover:bg-black group-hover:text-yellow-400 transition-all duration-300">
+                {React.cloneElement(item.icon, { size: 32, strokeWidth: 2.5 })}
               </div>
               <h3 className="text-xl font-black text-black italic uppercase tracking-tight mb-4">{item.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
@@ -86,9 +86,9 @@ const About = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-20 md:mt-32 text-center p-8 md:p-16 border-2 border-yellow-400 rounded-[2.5rem] md:rounded-[4rem] bg-white shadow-xl relative overflow-hidden"
+          className="mt-20 md:mt-32 text-center p-8 md:p-16 border-2 border-yellow-400 rounded-[2.5rem] md:rounded-[4rem] bg-white relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full -mr-16 -mt-16"></div>
           <p className="text-gray-600 font-medium text-xl md:text-3xl max-w-3xl mx-auto leading-tight uppercase tracking-tighter italic relative z-10">
             "Our mission is to make premium travel <span className="text-black font-black underline decoration-yellow-400 decoration-4 underline-offset-8">affordable</span> for every family in Khalilabad."
           </p>
@@ -101,8 +101,8 @@ const About = () => {
           viewport={{ once: true }}
           className="mt-16 md:mt-24 bg-black rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-14 text-center relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-400/5 blur-[80px] rounded-full" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 rounded-full" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-400/5 rounded-full" />
           <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3">Get In Touch</p>
           <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-3">
             Travel with <span className="text-yellow-400">Hello11</span>
@@ -115,7 +115,7 @@ const About = () => {
               href="https://wa.me/919628911211"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all hover:scale-105"
             >
               <MessageCircle size={20} /> Book on WhatsApp
             </a>

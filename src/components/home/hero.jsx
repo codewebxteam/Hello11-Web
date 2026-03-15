@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Phone, MessageCircle, MapPin, Search, User, Car, ArrowRight, Star, Play } from 'lucide-react';
-import mainImg from '../../assets/cars/mainimg.jpeg';
+import { Phone, MessageCircle, MapPin, Search, User, Car, ArrowRight, Star, Play, Gauge, Settings } from 'lucide-react';
+import aura from '../../assets/cars/car2.png';
+import swift from '../../assets/cars/car3.png';
+import scorpio from '../../assets/cars/car4.png';
 import { useBooking } from '../../context/BookingContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const WA = '919628911211';
 
@@ -12,7 +15,7 @@ const Hero = () => {
   const { selectedCar, setSelectedCar } = useBooking();
 
   const openWhatsApp = () => {
-    const carLine = selectedCar ? `🚗 *Vehicle:* ${selectedCar}\n` : '';
+    const carLine = selectedCar ? `🚗 *Vehicle:* ${selectedCar}\n` : '🚗 *Vehicle:* Hyundai Aura\n';
     const msg =
       `🚖 *Ride Enquiry*\n\n` +
       `👤 *Name:* ${name || 'Not provided'}\n` +
@@ -23,155 +26,108 @@ const Hero = () => {
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  const inp = "w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-yellow-400 transition-colors text-sm";
+  const labelClass = "text-[10px] md:text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-1 block";
+  const inpField = "w-full bg-transparent border-none p-0 text-white font-bold placeholder:text-white/20 focus:outline-none text-sm md:text-sm cursor-text";
 
   return (
-    <section id="hero-booking" className="relative min-h-screen w-full bg-[#0a0a0a] flex items-center overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,#fbbf2415_0%,transparent_50%)]" />
+    <section id="hero-booking" className="relative min-h-screen w-full bg-[#050505] flex flex-col items-center pt-28 md:pt-40 pb-12 md:pb-20 overflow-hidden">
+      {/* Background Subtle Gradient */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,#fbbf2405_0%,transparent_60%)]" />
 
-      <div className="relative z-10 container mx-auto px-4 md:px-6 py-6 pt-20 md:pt-28 lg:pt-32">
-        <div className="flex flex-col lg:flex-row items-stretch justify-between gap-6 lg:gap-16">
+      <div className="relative z-10 container mx-auto px-6 text-center max-w-6xl flex flex-col items-center">
+        
+        {/* 1. HEADING SECTION */}
+        <div className="mb-6 md:mb-10 shrink-0">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-block px-4 py-1.5 mb-4 text-[10px] font-black tracking-[0.25em] text-black uppercase bg-yellow-400 rounded-lg shadow-[0_4px_20px_rgba(250,204,21,0.3)]"
+          >
+            Elite Transport Service
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl lg:text-8xl font-black text-white leading-[1.1] tracking-tighter uppercase italic md:whitespace-nowrap"
+          >
+            Duri Pata <br className="md:hidden" /> <span className="text-yellow-400">Na Chale</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-gray-400 text-xs md:text-base md:max-w-none mt-3 font-medium leading-relaxed max-w-[280px] mx-auto md:max-w-none md:whitespace-nowrap"
+          >
+            Premium Khalilabad taxi service. Your comfort is our priority, every single mile.
+          </motion.p>
+        </div>
 
-          {/* LEFT SIDE */}
-          <div className="w-full lg:w-1/2 order-2 lg:order-1 flex flex-col justify-center">
-            <div className="text-center lg:text-left">
-              <span className="inline-block px-3 py-1 mb-4 text-[11px] font-black tracking-[0.3em] text-black uppercase bg-yellow-400 rounded-sm">
-                Elite Transport
-              </span>
-              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-6xl font-black text-white leading-tight uppercase italic tracking-tighter mb-3 md:mb-4">
-                Duri Pata <br />
-                <span className="text-yellow-400">Na Chale</span>
-              </h1>
-              <p className="text-gray-400 text-base md:text-xl max-w-lg mb-6 leading-relaxed mx-auto lg:mx-0">
-                Premium Khalilabad taxi service. Your comfort is our priority, every single mile.
-              </p>
-
-              {/* Trust badges - mobile */}
-              <div className="flex items-center justify-center lg:justify-start gap-4 mb-5 lg:hidden">
-                {['Safe Rides', '24/7 Service', '₹199 Starts'].map((badge) => (
-                  <span key={badge} className="flex items-center gap-1 text-[9px] font-black uppercase tracking-wider text-gray-400">
-                    <Star size={9} className="text-yellow-400" fill="#facc15" />
-                    {badge}
-                  </span>
-                ))}
+        {/* 2. FORM SECTION */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-[#0f0f0f]/80 backdrop-blur-xl p-2 md:p-2 rounded-3xl md:rounded-full shadow-[0_30px_60px_rgba(0,0,0,0.8)] mb-10 md:mb-12 w-full max-w-4xl mx-auto flex flex-col md:flex-row items-stretch border border-white/10 shrink-0"
+        >
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
+            {/* Field: Name */}
+            <div className="px-6 py-4 md:py-3 text-left group">
+              <label className={labelClass}>Booking For</label>
+              <div className="relative flex items-center gap-3">
+                <User className="text-yellow-400 group-focus-within:scale-110 transition-transform shrink-0" size={14} />
+                <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your Name" className={inpField} />
               </div>
-
-              {/* Selected Car Badge (desktop) */}
-              {selectedCar && (
-                <div className="flex items-center gap-2 mb-3 bg-yellow-400/10 border border-yellow-400/30 px-4 py-2 rounded-xl w-fit mx-auto lg:mx-0">
-                  <Car size={14} className="text-yellow-400" />
-                  <span className="text-yellow-400 text-xs font-black uppercase tracking-wider">{selectedCar} selected</span>
-                  <button onClick={() => setSelectedCar('')} className="text-yellow-400/50 hover:text-yellow-400 ml-1 text-xs font-bold">✕</button>
-                </div>
-              )}
-
-              {/* Desktop Search Card */}
-              <div className="hidden lg:block bg-white/[0.03] backdrop-blur-xl border border-white/10 p-5 rounded-3xl shadow-2xl mb-8 w-full max-w-xl">
-                <div className="flex flex-col gap-3">
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-400" size={16} />
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your Name" className={inp} />
-                  </div>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-400" size={16} />
-                    <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Pickup Location" className={inp} />
-                  </div>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-400" size={16} />
-                    <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Where to?" className={inp} />
-                  </div>
-                  <button onClick={openWhatsApp} className="bg-yellow-400 text-black font-black py-3 rounded-xl hover:bg-yellow-300 transition-colors shadow-lg uppercase text-sm tracking-wider flex items-center justify-center gap-2">
-                    <MessageCircle size={16} /> Find Best Ride
-                  </button>
-                </div>
-              </div>
-
-              {/* Desktop App Download CTA */}
-              <div className="hidden lg:flex flex-col items-start gap-3 mt-4">
-                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.25em]">Available on Mobile</p>
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.hello11"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-4 bg-yellow-400 hover:bg-yellow-300 text-black px-6 py-4 rounded-2xl font-black text-sm uppercase tracking-wider transition-all duration-300 shadow-xl hover:shadow-yellow-400/30 hover:scale-[1.02] active:scale-95 border border-yellow-300"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.18 23.76a2 2 0 0 0 2.13-.22l11.44-6.6-2.82-2.82L3.18 23.76ZM21.4 10.35l-2.95-1.7-3.16 3.16 3.16 3.16 2.98-1.72a1.7 1.7 0 0 0 0-2.9ZM1.14.77A2 2 0 0 0 .75 1.8v20.38a2 2 0 0 0 .39 1.03l.1.1 11.42-11.42v-.26L1.24.66l-.1.11ZM13.93 9.18l-2.68-2.68-8.07-4.65 10.75 7.33Z" />
-                  </svg>
-                  Download Hello11 App
-                  <span className="bg-black/10 group-hover:bg-black/20 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-wider transition-colors">Play Store</span>
-                </a>
-              </div>
-
-              {/* ===== MOBILE FORM & CTA (Moved below Headings) ===== */}
-              <div className="flex flex-col gap-5 mt-6 lg:hidden">
-                {/* Mobile Search Card */}
-                <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl">
-                  {selectedCar && (
-                    <div className="flex flex-wrap items-center justify-center gap-2 mb-3 bg-yellow-400/10 border border-yellow-400/30 px-3 py-1.5 rounded-xl w-fit mx-auto">
-                      <Car size={13} className="text-yellow-400" />
-                      <span className="text-yellow-400 text-[11px] font-black uppercase tracking-wider">{selectedCar} selected</span>
-                      <button onClick={() => setSelectedCar('')} className="text-yellow-400/50 hover:text-yellow-400 ml-1 text-xs font-bold">✕</button>
-                    </div>
-                  )}
-                  <div className="grid grid-cols-1 gap-3">
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-400" size={15} />
-                      <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your Name" className={inp + " py-2.5 text-xs bg-white/[0.05]"} />
-                    </div>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-400" size={15} />
-                      <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Pickup Location" className={inp + " py-2.5 text-xs bg-white/[0.05]"} />
-                    </div>
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-400" size={15} />
-                      <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Where to?" className={inp + " py-2.5 text-xs bg-white/[0.05]"} />
-                    </div>
-                    <button onClick={openWhatsApp} className="w-full bg-yellow-400 text-black font-black py-4 rounded-xl hover:bg-yellow-300 transition-colors shadow-[0_0_20px_rgba(250,204,21,0.3)] uppercase tracking-[0.1em] text-xs flex items-center justify-center gap-2">
-                      <Search size={16} /> Find Best Ride
-                    </button>
-                  </div>
-                </div>
-
-                {/* Distinct Mobile Front Page CTA */}
-                <div className="w-full flex flex-col items-center gap-3 mb-8">
-                  <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.25em]">Available on Mobile</p>
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.hello11"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex w-full justify-center items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-black px-5 py-4 rounded-2xl font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-yellow-400/30 hover:scale-[1.02] active:scale-95 border border-yellow-300"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M3.18 23.76a2 2 0 0 0 2.13-.22l11.44-6.6-2.82-2.82L3.18 23.76ZM21.4 10.35l-2.95-1.7-3.16 3.16 3.16 3.16 2.98-1.72a1.7 1.7 0 0 0 0-2.9ZM1.14.77A2 2 0 0 0 .75 1.8v20.38a2 2 0 0 0 .39 1.03l.1.1 11.42-11.42v-.26L1.24.66l-.1.11ZM13.93 9.18l-2.68-2.68-8.07-4.65 10.75 7.33Z" />
-                    </svg>
-                    Download Hello11 App
-                    <span className="bg-black/10 group-hover:bg-black/20 text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider transition-colors hidden sm:inline-block">Play Store</span>
-                  </a>
-                </div>
-              </div>
-              {/* ==================================================== */}
-
             </div>
-          </div>
-
-          {/* RIGHT SIDE (Only Video on Mobile, order-1 so it's top) */}
-          <div className="w-full lg:w-1/2 flex flex-col gap-4 order-1 lg:order-2">
-
-            {/* Image instead of Video */}
-            <div className="relative w-full h-[200px] sm:h-[260px] lg:h-full lg:min-h-[500px] rounded-2xl lg:rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-              <img src={mainImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-4 left-4">
-                <span className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-widest bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                  <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse" /> Live Fleet
-                </span>
+            {/* Field: Pickup */}
+            <div className="px-6 py-4 md:py-3 text-left group">
+              <label className={labelClass}>Pick up location</label>
+              <div className="relative flex items-center gap-3">
+                <MapPin className="text-yellow-400 group-focus-within:scale-110 transition-transform shrink-0" size={14} />
+                <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Ex: Khalilabad" className={inpField} />
+              </div>
+            </div>
+            {/* Field: Drop */}
+            <div className="px-6 py-4 md:py-3 text-left group">
+              <label className={labelClass}>Drop location</label>
+              <div className="relative flex items-center gap-3">
+                <Search className="text-yellow-400 group-focus-within:scale-110 transition-transform shrink-0" size={14} />
+                <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Ex: Lucknow" className={inpField} />
               </div>
             </div>
           </div>
 
+          <button 
+            onClick={openWhatsApp} 
+            className="bg-yellow-400 text-black p-4 md:p-5 rounded-2xl md:rounded-full hover:bg-white transition-all flex items-center justify-center m-1 shadow-2xl active:scale-95 group relative overflow-hidden"
+          >
+            <span className="font-black text-xs uppercase tracking-widest px-4 md:px-2">Find Ride</span>
+            <Search size={18} strokeWidth={3} className="hidden md:block group-hover:rotate-12 transition-transform" />
+          </button>
+        </motion.div>
+
+        <div className="relative w-full max-w-4xl mt-12 md:mt-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="relative z-10 w-full"
+          >
+            <motion.img
+              src={aura}
+              alt="Hyundai Aura"
+              className="w-full h-auto max-h-[50vh] object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.9)] mx-auto"
+            />
+          </motion.div>
+
+          {/* Background Highlight behind the car */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120px] md:h-[200px] bg-yellow-400/10 blur-[60px] md:blur-[100px] rounded-full -z-10" />
         </div>
       </div>
+
+      {/* YELLOW GROUND WAVE SECTION */}
+      <div className="absolute bottom-0 left-0 w-full h-[8vh] md:h-[12vh] bg-yellow-400 z-0 pointer-events-none"
+        style={{ clipPath: 'ellipse(75% 100% at 50% 100%)' }} />
     </section>
   );
 };

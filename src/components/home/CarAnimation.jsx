@@ -30,10 +30,10 @@ const CarAnimation = () => {
               opacity: [0, 0, 1, 1, 0, 0],
             }}
             transition={{
-              duration: 2.5,
-              times: [0, 0.15, 0.22, 0.78, 0.88, 1],
+              duration: 6,
+              times: [0, 0.20 + i * 0.03, 0.30 + i * 0.03, 0.70 + i * 0.03, 0.80 + i * 0.03, 1],
               repeat: Infinity,
-              delay: i * 0.04,
+              ease: "linear",
             }}
             className="text-4xl md:text-[8rem] font-black italic text-white leading-none tracking-tighter uppercase"
           >
@@ -49,10 +49,10 @@ const CarAnimation = () => {
               opacity: [0, 0, 1, 1, 0, 0],
             }}
             transition={{
-              duration: 2.5,
-              times: [0, 0.2, 0.28, 0.78, 0.88, 1],
+              duration: 6,
+              times: [0, 0.20 + (i + 5) * 0.03, 0.30 + (i + 5) * 0.03, 0.70 + (i + 5) * 0.03, 0.80 + (i + 5) * 0.03, 1],
               repeat: Infinity,
-              delay: (i + 5) * 0.04,
+              ease: "linear",
             }}
             className="text-4xl md:text-[8rem] font-black italic text-yellow-400 leading-none tracking-tighter"
           >
@@ -66,20 +66,20 @@ const CarAnimation = () => {
         initial={{ x: "-100vw" }}
         animate={{ x: "100vw" }}
         transition={{
-          duration: 2.5,
-          ease: "linear",
+          duration: 6,
           repeat: Infinity,
+          ease: "linear"
         }}
         className="absolute z-20 w-36 md:w-80 flex items-center justify-center pointer-events-none"
       >
         {/* Headlights Focus (Right Side) */}
         <div className="absolute right-[-120px] md:right-[-320px] flex flex-col gap-4 md:gap-8 opacity-80">
           <div
-            className="w-[140px] md:w-[450px] h-[50px] md:h-[140px] bg-gradient-to-l from-yellow-400/40 to-transparent blur-2xl transform rotate-[15deg]"
+            className="w-[140px] md:w-[450px] h-[50px] md:h-[140px] bg-gradient-to-l from-yellow-400/40 to-transparent transform rotate-[15deg]"
             style={{ clipPath: 'polygon(0% 0%, 100% 50%, 0% 100%)' }}
           ></div>
           <div
-            className="w-[140px] md:w-[450px] h-[50px] md:h-[140px] bg-gradient-to-l from-yellow-400/40 to-transparent blur-2xl transform -rotate-[15deg] -mt-8"
+            className="w-[140px] md:w-[450px] h-[50px] md:h-[140px] bg-gradient-to-l from-yellow-400/40 to-transparent transform -rotate-[15deg] -mt-8"
             style={{ clipPath: 'polygon(0% 0%, 100% 50%, 0% 100%)' }}
           ></div>
         </div>
@@ -91,16 +91,13 @@ const CarAnimation = () => {
             alt="Hello11 Car"
             className="w-full h-auto scale-110 md:scale-125 relative z-10"
           />
-          {/* Moving Ground Shadow */}
-          <div
-            className="w-full h-[45px] bg-gradient-to-r from-transparent via-black to-transparent blur-2xl rounded-full mt-[-35px] md:mt-[-65px] relative z-0 opacity-100"
-          />
+
         </div>
 
         {/* Tail Lights (Left Side) */}
         <div className="absolute left-[-5px] md:left-[-15px] top-1/2 -translate-y-1/2 flex flex-col gap-6 md:gap-12 opacity-50">
-          <div className="w-1.5 md:w-3 h-4 md:h-10 bg-red-600 blur-sm rounded-full"></div>
-          <div className="w-1.5 md:w-3 h-4 md:h-10 bg-red-600 blur-sm rounded-full"></div>
+          <div className="w-1.5 md:w-3 h-4 md:h-10 bg-red-600 rounded-full"></div>
+          <div className="w-1.5 md:w-3 h-4 md:h-10 bg-red-600 rounded-full"></div>
         </div>
       </motion.div>
 

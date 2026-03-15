@@ -8,42 +8,42 @@ const features = [
     title: "Maximum Safety", 
     desc: "Real-time GPS Tracking", 
     gradient: "from-blue-600 to-cyan-400", 
-    shadow: "shadow-blue-500/20" 
+    shadow: "" 
   },
   { 
     icon: <Zap size={24} />, 
     title: "Instant Pickup", 
     desc: "Zero Waiting Time", 
     gradient: "from-yellow-500 to-orange-400", 
-    shadow: "shadow-yellow-500/20" 
+    shadow: "" 
   },
   { 
     icon: <Clock size={24} />, 
     title: "24/7 Availability", 
     desc: "Day & Night Service", 
     gradient: "from-green-500 to-emerald-400", 
-    shadow: "shadow-green-500/20" 
+    shadow: "" 
   },
   { 
     icon: <Star size={24} />, 
     title: "Premium Fleet", 
     desc: "Luxury & Comfort", 
     gradient: "from-purple-600 to-pink-500", 
-    shadow: "shadow-purple-500/20" 
+    shadow: "" 
   },
   { 
     icon: <MapPin size={24} />, 
     title: "Global Reach", 
     desc: "Local & Outstation", 
     gradient: "from-red-600 to-rose-400", 
-    shadow: "shadow-red-500/20" 
+    shadow: "" 
   },
   { 
     icon: <Smartphone size={24} />, 
     title: "Smart Booking", 
     desc: "One Tap Connection", 
     gradient: "from-indigo-600 to-violet-400", 
-    shadow: "shadow-indigo-500/20" 
+    shadow: "" 
   },
 ];
 
@@ -70,13 +70,12 @@ const Features = () => {
               key={index}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.97 }}
-              className={`relative group p-4 md:p-6 rounded-[1.5rem] bg-[#0c0c0c] border border-white/5 overflow-hidden transition-all duration-300 ${item.shadow} hover:shadow-2xl`}
+              className={`relative group p-4 md:p-6 rounded-[1.5rem] bg-[#0c0c0c] border border-white/5 overflow-hidden transition-all duration-300 ${item.shadow}`}
             >
-              {/* Subtle Background Gradient Glow */}
-              <div className={`absolute -right-4 -top-4 w-16 h-16 bg-gradient-to-br ${item.gradient} opacity-10 blur-2xl group-hover:opacity-30 transition-opacity`} />
+
 
               {/* Icon with Dynamic Gradient */}
-              <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
+              <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white mb-3 group-hover:scale-110 transition-transform`}>
                 {item.icon}
               </div>
 

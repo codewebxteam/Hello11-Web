@@ -40,17 +40,7 @@ const Footer = () => {
     <footer className="bg-black text-white pt-8 pb-10 px-6 border-t border-white/5 relative overflow-hidden">
 
       {/* Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[200px] md:w-[500px] h-[100px] bg-yellow-400/5 blur-[80px] rounded-full pointer-events-none" />
 
-      {/* Road Shadow - bottom decorative element */}
-      <div className="absolute bottom-0 left-0 w-full pointer-events-none">
-        <div
-          className="w-full h-[60px] md:h-[80px]"
-          style={{
-            background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(250,204,21,0.12) 0%, rgba(250,204,21,0.04) 40%, transparent 70%)',
-          }}
-        />
-      </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
 
@@ -167,7 +157,7 @@ const Footer = () => {
               href="https://play.google.com/store/apps/details?id=com.hello11"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-black px-5 py-3 rounded-2xl font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-yellow-400/30 hover:scale-105 active:scale-95"
+              className="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-black px-5 py-3 rounded-2xl font-black text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 active:scale-95"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3.18 23.76a2 2 0 0 0 2.13-.22l11.44-6.6-2.82-2.82L3.18 23.76ZM21.4 10.35l-2.95-1.7-3.16 3.16 3.16 3.16 2.98-1.72a1.7 1.7 0 0 0 0-2.9ZM1.14.77A2 2 0 0 0 .75 1.8v20.38a2 2 0 0 0 .39 1.03l.1.1 11.42-11.42v-.26L1.24.66l-.1.11ZM13.93 9.18l-2.68-2.68-8.07-4.65 10.75 7.33Z" />

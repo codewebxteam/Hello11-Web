@@ -5,12 +5,12 @@ import { MapPin, Navigation, User, Calendar, ArrowRight, ChevronRight, Phone, Me
 const WA = '919628911211';
 
 // --- IMAGES IMPORT ---
-import car1 from '../assets/cars/car1.webp';
-import car2 from '../assets/cars/car2.webp';
-import car3 from '../assets/cars/car3.webp';
-import car4 from '../assets/cars/car4.webp';
-import car5 from '../assets/cars/car5.webp';
-import car6 from '../assets/cars/car6.webp';
+import car1 from '../assets/cars/car1.png';
+import car2 from '../assets/cars/car2.png';
+import car3 from '../assets/cars/car3.png';
+import car4 from '../assets/cars/car4.png';
+import car5 from '../assets/cars/car5.png';
+import car6 from '../assets/cars/car6.png';
 
 const rideCategories = [
   {
@@ -19,7 +19,6 @@ const rideCategories = [
     desc: "Within Khalilabad City",
     img: car1,
     price: "Starts @ ₹199",
-    color: "from-yellow-400 to-yellow-600"
   },
   {
     id: 'outstation',
@@ -27,7 +26,6 @@ const rideCategories = [
     desc: "Lucknow, GKP, Basti & More",
     img: car2,
     price: "Starts @ ₹9/km",
-    color: "from-black to-gray-800"
   },
 ];
 
@@ -61,135 +59,133 @@ const Ride = () => {
   };
 
   return (
-    <div className="bg-[#f8f9fa] min-h-screen pt-20 md:pt-32 pb-10 px-3 md:px-6">
-      <div className="container mx-auto max-w-6xl">
+    <div className="bg-[#fafafa] min-h-screen pt-28 md:pt-40 pb-20 px-3 md:px-6 relative overflow-hidden">
+      {/* Studio Background Accents */}
+      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-yellow-400/5 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-yellow-400/5 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
+
+      <div className="container mx-auto max-w-7xl relative z-10">
 
         {/* Header */}
-        <div className="mb-8 md:mb-12 px-2">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="h-[2px] w-8 bg-yellow-500"></div>
-            <span className="text-yellow-600 font-bold tracking-widest uppercase text-[10px] md:text-xs">
-              Booking Engine
+        <div className="mb-12 md:mb-20 px-2 text-center md:text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-2 mb-4 justify-center md:justify-start"
+          >
+            <div className="h-[2px] w-12 bg-yellow-500"></div>
+            <span className="text-yellow-600 font-black tracking-[0.4em] uppercase text-[10px] md:text-xs">
+              Elite Booking Engine
             </span>
-          </div>
-          <h1 className="text-4xl md:text-8xl font-black text-black leading-[0.9] tracking-tighter uppercase">
-            SELECT <br /> <span className="text-yellow-500">YOUR RIDE</span>
-          </h1>
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-6xl md:text-9xl font-black text-black leading-[0.8] tracking-tighter uppercase italic"
+          >
+            SELECT <br /> <span className="text-yellow-500 underline decoration-black/5 decoration-8 underline-offset-[-5px]">YOUR RIDE</span>
+          </motion.h1>
         </div>
 
         {/* Category Selector */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-8 md:mb-16">
-          {rideCategories.map((cat) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-12 md:mb-24">
+          {rideCategories.map((cat, i) => (
             <motion.div
               key={cat.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelected(cat.id)}
-              className={`relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 cursor-pointer transition-all duration-500 border-2 ${selected === cat.id
-                ? 'border-yellow-400 bg-white shadow-xl translate-y-[-5px]'
-                : 'border-gray-100 bg-white hover:border-yellow-200'
+              className={`relative overflow-hidden rounded-[3rem] md:rounded-[4rem] p-8 md:p-12 cursor-pointer transition-all duration-500 border group ${selected === cat.id
+                ? 'border-yellow-400 bg-white shadow-[0_40px_100px_-20px_rgba(250,204,21,0.2)]'
+                : 'border-gray-100 bg-white hover:border-yellow-200 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.03)]'
                 }`}
             >
               <div className="relative z-10">
-                <h3 className={`text-xl md:text-2xl font-black italic uppercase tracking-tight ${selected === cat.id ? 'text-black' : 'text-gray-400'}`}>
+                <h3 className={`text-3xl md:text-5xl font-black italic uppercase tracking-tighter transition-colors ${selected === cat.id ? 'text-black' : 'text-gray-300'}`}>
                   {cat.title}
                 </h3>
-                <p className="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-1">{cat.desc}</p>
-                <div className={`mt-4 font-black text-lg ${selected === cat.id ? 'text-yellow-500' : 'text-gray-300'}`}>
+                <p className="text-yellow-600/60 text-[10px] font-black uppercase tracking-[0.4em] mt-2">{cat.desc}</p>
+                <div className={`mt-8 inline-block px-6 py-2 rounded-xl font-black text-sm transition-all shadow-sm ${selected === cat.id ? 'bg-black text-yellow-400' : 'bg-gray-50 text-gray-300'}`}>
                   {cat.price}
                 </div>
               </div>
 
-              {/* Background Car Image + Shadow */}
-              <div className="absolute bottom-[-10px] md:bottom-2 -right-4 flex flex-col items-end">
+              {/* Background Car Image */}
+              <div className="absolute bottom-6 -right-8 md:right-0">
                 <motion.img
                   src={cat.img}
                   alt={cat.title}
-                  className={`w-32 md:w-48 h-auto object-contain transition-all duration-700 pointer-events-none ${selected === cat.id ? 'opacity-100 scale-110' : 'opacity-10 grayscale'
+                  className={`w-44 md:w-72 h-auto object-contain transition-all duration-700 pointer-events-none ${selected === cat.id
+                    ? 'opacity-100 scale-110 translate-x-0'
+                    : 'opacity-5 grayscale translate-x-4 group-hover:opacity-10'
                     }`}
                 />
-                <div className={`cat-car-shadow transition-all duration-700 ${selected === cat.id ? 'opacity-100 scale-110' : 'opacity-0'}`} />
               </div>
             </motion.div>
           ))}
         </div>
 
         {/* Booking Interface */}
-        <div className="bg-black rounded-[2.5rem] md:rounded-[4rem] p-6 md:p-16 relative overflow-hidden shadow-2xl">
+        <div className="bg-black rounded-[4rem] md:rounded-[6rem] p-8 md:p-20 relative overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.3)]">
           {/* Subtle Glow Effect */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
+          <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-yellow-400/5 rounded-full blur-[100px]" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
 
             {/* Left: Car Display */}
-            <div className="relative h-48 md:h-80 flex flex-col items-center justify-center order-2 lg:order-1">
-              <style dangerouslySetInnerHTML={{
-                __html: `
-                .ride-road-shadow {
-                  width: 95%;
-                  height: 40px;
-                  background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 90%);
-                  border-radius: 50%;
-                  margin-top: -85px;
-                  flex-shrink: 0;
-                  filter: blur(6px);
-                }
-                .cat-car-shadow {
-                  width: 85%;
-                  height: 20px;
-                  background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, transparent 85%);
-                  border-radius: 50%;
-                  margin-top: -15px;
-                  margin-left: auto;
-                  filter: blur(3px);
-                }
-              `}} />
-              <div className="absolute inset-0 bg-yellow-400/5 blur-[80px] rounded-full" />
+            <div className="relative h-64 md:h-[400px] flex flex-col items-center justify-center order-2 lg:order-1">
+
+              <div className="absolute inset-0 bg-yellow-400/[0.03] rounded-full blur-3xl scale-90" />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selected}
-                  initial={{ x: 30, opacity: 0 }}
+                  initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -30, opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "circOut" }}
-                  className="w-full h-full flex flex-col items-center justify-center"
+                  exit={{ x: -50, opacity: 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full flex flex-col items-center justify-center p-8"
                 >
                   <img
                     src={getHeroImage()}
-                    className="w-full h-full object-contain relative z-10"
+                    className="w-full h-full object-contain relative z-10 drop-shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
+                    alt="Booking Car"
                   />
-                  <div className="ride-road-shadow relative z-0" />
                 </motion.div>
               </AnimatePresence>
             </div>
 
             {/* Right: Action Form */}
-            <div className="flex flex-col gap-6 order-1 lg:order-2">
-              <div className="space-y-4">
-                <div className="inline-block">
-                  <span className="bg-yellow-400 text-black text-[10px] font-black tracking-widest px-3 py-1 rounded-full uppercase mb-2 block w-fit">
-                    {selected} package
+            <div className="flex flex-col gap-8 order-1 lg:order-2">
+              <div className="space-y-6">
+                <div>
+                  <span className="bg-yellow-400 text-black text-[10px] font-black tracking-[0.3em] px-4 py-1.5 rounded-full uppercase mb-4 block w-fit">
+                    {selected} Premium
                   </span>
-                  <h4 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter">
-                    Quick Booking
+                  <h4 className="text-white text-4xl md:text-7xl font-black italic uppercase tracking-tighter leading-none">
+                    QUICK <span className="text-yellow-400">ENTRY</span>
                   </h4>
                 </div>
 
-                <div className="grid grid-cols-1 gap-3">
-                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
-                    <User className="text-yellow-400 shrink-0" size={17} />
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your Name" className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium" />
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
+                    <User className="text-gray-500 group-focus-within:text-yellow-400 shrink-0" size={18} />
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Full Name" className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight" />
                   </div>
-                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
-                    <MapPin className="text-yellow-400 shrink-0" size={17} />
-                    <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Pickup Point" className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
+                      <MapPin className="text-gray-500 group-focus-within:text-yellow-400 shrink-0" size={18} />
+                      <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Pickup Location" className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight" />
+                    </div>
+                    <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
+                      <Navigation className="text-gray-500 group-focus-within:text-yellow-400 shrink-0" size={18} />
+                      <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Drop Location" className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight" />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
-                    <Navigation className="text-yellow-400 shrink-0" size={17} />
-                    <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Drop Point" className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium" />
-                  </div>
-                  <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/10 focus-within:border-yellow-400 transition-all">
-                    <Calendar className="text-yellow-400 shrink-0" size={17} />
-                    <input type="date" value={date} onChange={e => setDate(e.target.value)} className="bg-transparent outline-none text-white text-sm w-full placeholder:text-gray-600 font-medium appearance-none" style={{ colorScheme: 'dark' }} />
+                  <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
+                    <Calendar className="text-gray-500 group-focus-within:text-yellow-500 shrink-0" size={18} />
+                    <input type="date" value={date} onChange={e => setDate(e.target.value)} className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold appearance-none" style={{ colorScheme: 'dark' }} />
                   </div>
                 </div>
               </div>
@@ -198,43 +194,42 @@ const Ride = () => {
                 onClick={handleBookRide}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-yellow-400 py-5 md:py-7 rounded-[1.5rem] md:rounded-2xl text-black font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl hover:bg-white transition-all duration-300 group"
+                className="w-full bg-yellow-400 py-6 rounded-[2rem] text-black font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-white transition-all duration-500 group shadow-[0_20px_50px_rgba(250,204,21,0.3)]"
               >
-                Confirm {selected} Ride
-                <ArrowRight size={20} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
+                CONFIRM {selected.toUpperCase()} RIDE
+                <ArrowRight size={24} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
               </motion.button>
 
-              <div className="flex items-center justify-center gap-6 text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">
-                <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400" /> Instant</span>
-                <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400" /> Secure</span>
-                <span className="flex items-center gap-1"><ChevronRight size={10} className="text-yellow-400" /> 24/7</span>
+              <div className="flex items-center justify-center gap-8 text-gray-600 text-[10px] font-black uppercase tracking-[0.3em]">
+                <span className="flex items-center gap-2"><ChevronRight size={12} className="text-yellow-400" /> Instant</span>
+                <span className="flex items-center gap-2"><ChevronRight size={12} className="text-yellow-400" /> Secure</span>
+                <span className="flex items-center gap-2"><ChevronRight size={12} className="text-yellow-400" /> 24/7</span>
               </div>
             </div>
 
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-12 md:mt-16 bg-black rounded-[2.5rem] p-8 md:p-12 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
-          <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3">Ready to Go?</p>
-          <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-6">
-            Book Your <span className="text-yellow-400">Ride Now</span>
+        {/* Support Section */}
+        <div className="mt-20 md:mt-32 border border-gray-100 rounded-[4rem] p-10 md:p-20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.03)] text-center relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400/5 rounded-full blur-3xl -ml-32 -mt-32" />
+          <h3 className="text-4xl md:text-7xl font-black italic text-black uppercase tracking-tighter mb-8 leading-none">
+            NEED <span className="text-yellow-500">ASSISTANCE?</span>
           </h3>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
               href={`https://wa.me/${WA}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+              className="flex items-center justify-center gap-4 bg-black text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-yellow-400 hover:text-black transition-all duration-500 shadow-xl"
             >
-              <MessageCircle size={20} /> Chat on WhatsApp
+              <MessageCircle size={20} /> CHAT SUPPORT
             </a>
             <a
               href="tel:+919628911211"
-              className="flex items-center justify-center gap-3 bg-white/5 text-white px-8 py-4 rounded-2xl font-bold border border-white/10 hover:bg-white/10 transition-all text-sm uppercase tracking-wider"
+              className="flex items-center justify-center gap-4 bg-white text-black px-10 py-5 rounded-2xl font-black border border-gray-200 hover:border-yellow-400 transition-all duration-500 text-xs uppercase tracking-[0.2em] shadow-lg"
             >
-              <Phone size={20} className="text-yellow-400" /> Call +91 96289 11211
+              <Phone size={20} className="text-yellow-400" /> +91 96289 11211
             </a>
           </div>
         </div>

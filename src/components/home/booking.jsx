@@ -58,7 +58,7 @@ const Booking = () => {
         </div>
 
         {/* Form */}
-        <div className="bg-[#0c0c0c] border border-white/5 rounded-[2.5rem] p-4 md:p-6 shadow-2xl relative z-10">
+        <div className="bg-[#0c0c0c] border border-white/5 rounded-[2.5rem] p-4 md:p-6 relative z-10">
           <form onSubmit={handleBook} className="grid grid-cols-1 md:grid-cols-5 gap-3">
 
             {/* Name */}
@@ -91,7 +91,7 @@ const Booking = () => {
 
             {/* Submit */}
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit"
-              className="bg-yellow-400 hover:bg-white text-black font-black uppercase tracking-widest text-xs py-5 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-[0_10px_30px_rgba(250,204,21,0.2)]">
+              className="bg-yellow-400 hover:bg-white text-black font-black uppercase tracking-widest text-xs py-5 rounded-2xl flex items-center justify-center gap-2 transition-all">
               Book Now <ArrowRight size={16} strokeWidth={3} />
             </motion.button>
           </form>
@@ -105,8 +105,8 @@ const Booking = () => {
         </div>
 
         {/* Modern CTA Block */}
-        <div className="mt-16 bg-[#0a0a0a] rounded-[2.5rem] p-8 md:p-14 text-center border border-white/5 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-1/2 translate-x-1/2 w-64 h-64 bg-yellow-400/10 blur-[100px] rounded-full" />
+        <div className="mt-16 bg-[#0a0a0a] rounded-[2.5rem] p-8 md:p-14 text-center border border-white/5 relative overflow-hidden">
+          <div className="absolute top-0 right-1/2 translate-x-1/2 w-64 h-64 bg-yellow-400/10 rounded-full hidden md:block" />
           <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 relative z-10">Don't Want to Wait?</p>
           <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-8 relative z-10">
             Book <span className="text-yellow-400">Instantly</span>
@@ -116,7 +116,7 @@ const Booking = () => {
               href={`https://wa.me/${WA}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all hover:scale-105"
             >
               <MessageCircle size={20} /> Chat on WhatsApp
             </a>
@@ -130,7 +130,7 @@ const Booking = () => {
         </div>
       </div>
 
-      <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-yellow-400/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-yellow-400/5 rounded-full pointer-events-none" />
     </section>
   );
 };

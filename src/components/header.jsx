@@ -8,6 +8,8 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [navVisible, setNavVisible] = useState(true);
+  const [showTopNav, setShowTopNav] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const observerRef = useRef(null);
 
   // Scroll to top on route change
@@ -38,6 +40,31 @@ const Header = () => {
     };
   }, [location.pathname]);
 
+  // Handle Top Header Scroll Logic
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Always show at the very top
+      if (currentScrollY < 50) {
+        setShowTopNav(true);
+      } 
+      // scrolling down
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowTopNav(false);
+      } 
+      // scrolling up
+      else if (currentScrollY < lastScrollY) {
+        setShowTopNav(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
   const navItems = [
     { name: 'Home', path: '/', icon: <Home size={22} strokeWidth={1.8} /> },
     { name: 'Ride', path: '/ride', icon: <Car size={22} strokeWidth={1.8} /> },
@@ -48,26 +75,31 @@ const Header = () => {
   return (
     <>
       {/* ── TOP HEADER ── */}
-      <header className="fixed top-0 w-full z-[60] px-4 py-3 md:px-6 md:py-4 pointer-events-none">
-        <div className="container mx-auto flex justify-between items-center bg-gradient-to-r from-yellow-400/90 to-yellow-400/90 backdrop-blur-xl border border-yellow-300/50 p-2.5 px-4 md:p-3 md:px-6 rounded-2xl shadow-[0_10px_30px_rgba(250,204,21,0.2)] pointer-events-auto">
+      <motion.header 
+        initial={{ y: 0 }}
+        animate={{ y: showTopNav ? 0 : -100 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="fixed top-0 w-full z-[60] px-4 py-3 md:px-6 md:py-4 pointer-events-none"
+      >
+        <div className="container mx-auto flex justify-between items-center bg-gradient-to-r from-yellow-400/90 to-yellow-400/90 backdrop-blur-xl border border-yellow-300/50 p-2.5 px-4 md:p-3 md:px-6 rounded-2xl pointer-events-auto shadow-2xl">
           <motion.div
             whileTap={{ scale: 0.95 }}
             className="cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <img src={logo} alt="Hello11" className="h-8 md:h-10 w-auto object-contain drop-shadow-md" />
+            <img src={logo} alt="Hello11" className="h-8 md:h-10 w-auto object-contain" />
           </motion.div>
 
           <motion.a
             whileHover={{ scale: 1.05, backgroundColor: '#222' }}
             whileTap={{ scale: 0.95 }}
             href="tel:+919628911211"
-            className="flex items-center gap-2 bg-black px-4 py-2 rounded-xl text-yellow-400 font-black text-[11px] uppercase tracking-wider shadow-[0_5px_15px_rgba(0,0,0,0.3)] transition-all duration-300"
+            className="flex items-center gap-2 bg-black px-4 py-2 rounded-xl text-yellow-400 font-black text-[11px] uppercase tracking-wider transition-all duration-300"
           >
             <Phone size={13} fill="currentColor" /> Call Now
           </motion.a>
         </div>
-      </header>
+      </motion.header>
 
       {/* ── BOTTOM NAVIGATION ── */}
       <AnimatePresence>
@@ -80,10 +112,7 @@ const Header = () => {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-[420px]"
           >
-            {/* Outer glow ring */}
-            <div className="absolute inset-0 rounded-[2.8rem] bg-yellow-400/10 blur-xl pointer-events-none" />
-
-            <div className="relative bg-[#0a0a0a] backdrop-blur-3xl rounded-[2.8rem] border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] flex justify-between items-center p-1.5 px-2 gap-1 overflow-hidden">
+            <div className="relative bg-[#0a0a0a] backdrop-blur-3xl rounded-[2.8rem] border border-white/[0.08] flex justify-between items-center p-1.5 px-2 gap-1 overflow-hidden">
 
               {/* Subtle inner gradient */}
               <div className="absolute inset-0 rounded-[2.8rem] bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
@@ -102,7 +131,7 @@ const Header = () => {
                     {isActive && (
                       <motion.div
                         layoutId="nav-active-pill"
-                        className="absolute inset-0 rounded-[2.2rem] bg-gradient-to-b from-yellow-300 to-yellow-500 shadow-[0_0_20px_rgba(250,204,21,0.6),0_4px_12px_rgba(250,204,21,0.3)]"
+                        className="absolute inset-0 rounded-[2.2rem] bg-gradient-to-b from-yellow-300 to-yellow-500"
                         transition={{ type: 'spring', stiffness: 420, damping: 32 }}
                       />
                     )}

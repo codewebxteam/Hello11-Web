@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Fuel, Gauge, ChevronRight, X, User, MapPin, Navigation, Calendar, Phone, MessageCircle } from 'lucide-react';
 
-import car1 from '../assets/cars/car1.webp';
-import car2 from '../assets/cars/car2.webp';
-import car3 from '../assets/cars/car3.webp';
-import car4 from '../assets/cars/car4.webp';
-import car5 from '../assets/cars/car5.webp';
-import car6 from '../assets/cars/car6.webp';
+import car1 from '../assets/cars/car1.png';
+import car2 from '../assets/cars/car2.png';
+import car3 from '../assets/cars/car3.png';
+import car4 from '../assets/cars/car4.png';
+import car5 from '../assets/cars/car5.png';
+import car6 from '../assets/cars/car6.png';
 
 const WA = '919628911211';
 
@@ -66,27 +66,7 @@ const Rent = () => {
         </div>
 
         {/* Cars Grid */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-          .rent-road-shadow {
-            width: 90%;
-            height: 35px;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 85%);
-            border-radius: 50%;
-            margin: -55px auto 0;
-            flex-shrink: 0;
-            filter: blur(4px);
-          }
-          .rent-road-shadow-yellow {
-            width: 90%;
-            height: 35px;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 85%);
-            border-radius: 50%;
-            margin: -55px auto 0;
-            flex-shrink: 0;
-            filter: blur(4px);
-          }
-        `}} />
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {cars.map((car) => (
             <motion.div
@@ -95,14 +75,13 @@ const Rent = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              className="bg-white border-2 border-yellow-400 rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-7 group transition-all duration-500 shadow-lg hover:shadow-2xl"
+              className="bg-white border-2 border-yellow-400 rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-7 group transition-all duration-500"
             >
               <div className="relative mb-4 flex flex-col items-center">
-                <div className="absolute inset-0 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
                   style={{ background: car.darkBg ? 'rgba(250,200,10,0.15)' : 'rgba(250,200,10,0.1)' }} />
-                <img src={car.img} alt={car.name} className="w-full h-40 md:h-52 object-contain relative z-10 group-hover:scale-110 transition-transform duration-700 pointer-events-none drop-shadow-2xl" />
-                {/* Road shadow */}
-                <div className={car.darkBg ? 'rent-road-shadow-yellow' : 'rent-road-shadow'} />
+                <img src={car.img} alt={car.name} className="w-full h-40 md:h-52 object-contain relative z-10 group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
+
               </div>
 
               <div className="flex justify-between items-start mb-6">
@@ -116,7 +95,7 @@ const Rent = () => {
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setModal(car)}
-                  className="bg-black text-white p-3.5 md:p-4 rounded-2xl group-hover:bg-yellow-400 group-hover:text-black transition-all duration-300 shadow-md"
+                  className="bg-black text-white p-3.5 md:p-4 rounded-2xl group-hover:bg-yellow-400 group-hover:text-black transition-all duration-300"
                 >
                   <ChevronRight size={18} strokeWidth={3} />
                 </motion.button>
@@ -142,7 +121,7 @@ const Rent = () => {
 
         {/* Disclaimer */}
         <div className="mt-12 md:mt-16 text-center">
-          <div className="inline-block px-6 py-2 bg-white border-2 border-yellow-400 rounded-full shadow-md">
+          <div className="inline-block px-6 py-2 bg-white border-2 border-yellow-400 rounded-full">
             <p className="text-black text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">
               *Conditions Apply • No Fuel Included • ID Proof Required
             </p>
@@ -151,7 +130,7 @@ const Rent = () => {
 
         {/* CTA Section */}
         <div className="mt-8 md:mt-10 bg-black rounded-[2.5rem] p-8 md:p-12 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400/10 blur-[120px] rounded-full" />
+          <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400/10 rounded-full" />
           <p className="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3">Want to Rent a Car?</p>
           <h3 className="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-6">
             Drive in <span className="text-yellow-400">Style</span>
@@ -161,7 +140,7 @@ const Rent = () => {
               href={`https://wa.me/${WA}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all shadow-xl hover:scale-105"
+              className="flex items-center justify-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-yellow-300 transition-all hover:scale-105"
             >
               <MessageCircle size={20} /> Enquire on WhatsApp
             </a>
@@ -181,7 +160,7 @@ const Rent = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#111] border border-white/10 rounded-3xl p-6 w-full max-w-md shadow-2xl"
+            className="bg-[#111] border border-white/10 rounded-3xl p-6 w-full max-w-md"
           >
             {/* Modal Header */}
             <div className="flex justify-between items-start mb-5">

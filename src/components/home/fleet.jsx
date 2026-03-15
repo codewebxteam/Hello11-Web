@@ -1,52 +1,38 @@
-import React, { useRef, useEffect } from 'react';
-import { Users, Wind, ArrowUpRight, IndianRupee, ChevronRight, ChevronLeft, Fuel } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Users, Gauge, Settings, Droplets, ChevronRight, ChevronLeft, IndianRupee, ArrowRight } from 'lucide-react';
 import { useBooking } from '../../context/BookingContext';
 
-import car1 from '../../assets/cars/car1.webp';
-import car2 from '../../assets/cars/car2.webp';
-import car3 from '../../assets/cars/car3.webp';
-import car4 from '../../assets/cars/car4.webp';
-import car5 from '../../assets/cars/car5.webp';
-import car6 from '../../assets/cars/car6.webp';
+import car1 from '../../assets/cars/car1.png';
+import car2 from '../../assets/cars/car2.png';
+import car3 from '../../assets/cars/car3.png';
+import car4 from '../../assets/cars/car4.png';
+import car5 from '../../assets/cars/car5.png';
+import car6 from '../../assets/cars/car6.png';
 
 const cars = [
-  { id: 1, name: "Innova Crysta", type: "LUXURY MPV", img: car1, rate: "18", seats: "7+1", ac: "Dual Chill", fuel: "Diesel", darkBg: false },
-  { id: 2, name: "Hyundai Aura", type: "PREMIUM SEDAN", img: car2, rate: "12", seats: "4+1", ac: "Climate", fuel: "CNG/Petrol", darkBg: false },
-  { id: 3, name: "Maruti Swift", type: "ECONOMY HATCH", img: car3, rate: "10", seats: "4+1", ac: "Manual", fuel: "Petrol", darkBg: false },
-  { id: 4, name: "Mahindra Scorpio", type: "POWER SUV", img: car4, rate: "16", seats: "6+1", ac: "Powerful", fuel: "Diesel", darkBg: true },
-  { id: 5, name: "Hyundai i10", type: "CITY COMPACT", img: car5, rate: "9", seats: "4+1", ac: "Standard", fuel: "Petrol", darkBg: false },
-  { id: 6, name: "Mahindra Bolero", type: "RUGGED MUV", img: car6, rate: "13", seats: "6+1", ac: "Powerful", fuel: "Diesel", darkBg: true },
+  { id: 1, name: "Innova Crysta", type: "Premium MPV", img: car1, rate: "18", seats: "7+1", transmission: "Auto/Manual", speed: "180 km/h", mileage: "12 km/l" },
+  { id: 2, name: "Hyundai Aura", type: "Premium Sedan", img: car2, rate: "12", seats: "4+1", transmission: "Manual", speed: "160 km/h", mileage: "20 km/l" },
+  { id: 3, name: "Maruti Swift", type: "Economy Hatch", img: car3, rate: "10", seats: "4+1", transmission: "Manual", speed: "150 km/h", mileage: "22 km/l" },
+  { id: 4, name: "Mahindra Scorpio", type: "Power SUV", img: car4, rate: "16", seats: "6+1", transmission: "Manual", speed: "170 km/h", mileage: "14 km/l" },
+  { id: 5, name: "Hyundai i10", type: "City Compact", img: car5, rate: "9", seats: "4+1", transmission: "Manual", speed: "145 km/h", mileage: "19 km/l" },
+  { id: 6, name: "Mahindra Bolero", type: "Rugged MUV", img: car6, rate: "13", seats: "6+1", transmission: "Manual", speed: "140 km/h", mileage: "15 km/l" },
 ];
 
 const Fleet = () => {
-  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const { setSelectedCar } = useBooking();
 
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === 'left'
-        ? scrollLeft - clientWidth / 1.5
-        : scrollLeft + clientWidth / 1.5;
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
-    }
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % cars.length);
   };
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const interval = setInterval(() => {
-      const { scrollLeft, scrollWidth, clientWidth } = el;
-      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 10;
-      el.scrollTo({ left: isAtEnd ? 0 : scrollLeft + clientWidth / 1.5, behavior: 'smooth' });
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + cars.length) % cars.length);
+  };
 
   const handleSelectCar = (car) => {
-    // Store car name in context
     setSelectedCar(car.name);
-    // Smooth scroll to the top hero booking section
     const heroSection = document.getElementById('hero-booking');
     if (heroSection) {
       heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -56,149 +42,160 @@ const Fleet = () => {
   };
 
   return (
-    <section className="bg-white py-10 md:py-24 overflow-hidden relative">
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .car-floating-shadow { filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2)); }
-        .car-road-shadow {
-          width: 90%;
-          height: 35px;
-          background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 85%);
-          border-radius: 50%;
-          margin-top: -55px;
-          margin-left: auto;
-          margin-right: auto;
-          flex-shrink: 0;
-          filter: blur(4px);
-        }
-        .car-road-shadow-yellow {
-          width: 90%;
-          height: 35px;
-          background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 85%);
-          border-radius: 50%;
-          margin-top: -55px;
-          margin-left: auto;
-          margin-right: auto;
-          flex-shrink: 0;
-          filter: blur(4px);
-        }
-      `}} />
+    <section className="bg-[#050505] py-20 md:py-32 overflow-hidden relative">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+      />
 
-      {/* Header */}
-      <div className="container mx-auto px-4 md:px-6 mb-8 md:mb-16 flex justify-between items-end">
-        <div>
-          <div className="flex items-center gap-2 mb-1 md:mb-2">
-            <div className="h-[2px] w-8 md:w-12 bg-yellow-500"></div>
-            <span className="text-yellow-600 font-bold tracking-widest uppercase text-[10px] md:text-xs">Elite Fleet</span>
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-24">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center gap-3 mb-4"
+          >
+            <div className="h-[1px] w-8 bg-yellow-400"></div>
+            <span className="text-yellow-400 font-black tracking-[0.3em] uppercase text-[10px]">Premium Collection</span>
+            <div className="h-[1px] w-8 bg-yellow-400"></div>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            viewport={{ once: true }}
+            className="text-5xl md:text-8xl font-black text-white leading-tight uppercase italic tracking-tighter"
+          >
+            Modern <span className="text-yellow-400">Garage</span>
+          </motion.h2>
+        </div>
+
+        {/* COVERFLOW CAROUSEL */}
+        <div className="relative h-[400px] md:h-[600px] flex items-center justify-center">
+          <div className="relative w-full max-w-6xl h-full flex items-center justify-center">
+            {cars.map((car, index) => {
+              // Calculate relative position to active index
+              let position = index - activeIndex;
+              
+              // Handle wrap-around for smooth infinite-feeling scroll
+              if (position < -1) position += cars.length;
+              if (position > 1) position -= cars.length;
+
+              // Only render neighborhood of 3 cars
+              const isVisible = Math.abs(position) <= 1;
+
+              return (
+                <AnimatePresence key={car.id}>
+                  {isVisible && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{
+                        x: position * (window.innerWidth < 768 ? 200 : 450),
+                        scale: position === 0 ? 1 : 0.65,
+                        opacity: position === 0 ? 1 : 0.4,
+                        zIndex: position === 0 ? 50 : 20,
+                        rotateY: position * -35,
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="absolute w-[280px] md:w-[600px] flex flex-col items-center"
+                    >
+                      {/* Car Image with Glow/Shadow */}
+                      <div className="relative group">
+                        <img
+                          src={car.img}
+                          alt={car.name}
+                          className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
+                        />
+                        {position === 0 && (
+                          <motion.div 
+                            layoutId="car-shadow"
+                            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-4 bg-yellow-400/20 blur-xl rounded-full"
+                          />
+                        )}
+                      </div>
+
+                      {/* Active Car Info */}
+                      {position === 0 && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-8 md:mt-12 text-center w-full"
+                        >
+                          <h3 className="text-3xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-6">
+                            {car.name}
+                          </h3>
+                          
+                          {/* Specs Grid */}
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto px-4">
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-2xl flex flex-col items-center group hover:bg-yellow-400 transition-colors duration-300">
+                              <Gauge size={20} className="text-yellow-400 group-hover:text-black mb-2" />
+                              <span className="text-[10px] text-gray-500 group-hover:text-black/60 font-black uppercase tracking-widest">Max Speed</span>
+                              <span className="text-white group-hover:text-black font-black text-sm md:text-base">{car.speed}</span>
+                            </div>
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-2xl flex flex-col items-center group hover:bg-yellow-400 transition-colors duration-300">
+                              <Settings size={20} className="text-yellow-400 group-hover:text-black mb-2" />
+                              <span className="text-[10px] text-gray-500 group-hover:text-black/60 font-black uppercase tracking-widest">Transmission</span>
+                              <span className="text-white group-hover:text-black font-black text-sm md:text-base">{car.transmission}</span>
+                            </div>
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-2xl flex flex-col items-center group hover:bg-yellow-400 transition-colors duration-300">
+                              <Users size={20} className="text-yellow-400 group-hover:text-black mb-2" />
+                              <span className="text-[10px] text-gray-500 group-hover:text-black/60 font-black uppercase tracking-widest">Capacity</span>
+                              <span className="text-white group-hover:text-black font-black text-sm md:text-base">{car.seats}</span>
+                            </div>
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-2xl flex flex-col items-center group hover:bg-yellow-400 transition-colors duration-300">
+                              <Droplets size={20} className="text-yellow-400 group-hover:text-black mb-2" />
+                              <span className="text-[10px] text-gray-500 group-hover:text-black/60 font-black uppercase tracking-widest">Efficiency</span>
+                              <span className="text-white group-hover:text-black font-black text-sm md:text-base">{car.mileage}</span>
+                            </div>
+                          </div>
+
+                          {/* Action Bar */}
+                          <div className="mt-8 flex items-center justify-center gap-6">
+                            <div className="text-left">
+                              <span className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] block mb-1">Starting from</span>
+                              <div className="flex items-baseline gap-1">
+                                <span className="text-yellow-400 text-2xl font-black">₹{car.rate}</span>
+                                <span className="text-gray-600 text-[10px] font-bold">/ KM</span>
+                              </div>
+                            </div>
+                            <button 
+                              onClick={() => handleSelectCar(car)}
+                              className="bg-yellow-400 text-black px-10 py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 flex items-center gap-2"
+                            >
+                              Rent Now <ArrowRight size={18} />
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              );
+            })}
           </div>
-          <h2 className="text-4xl md:text-8xl font-black text-black leading-none tracking-tighter uppercase">
-            Modern <span className="text-gray-200 block md:inline">Garage</span>
-          </h2>
-        </div>
-      </div>
 
-      {/* Scroller */}
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-10 px-4 md:px-[8vw] pb-12 no-scrollbar"
-      >
-        {cars.map((car) => (
-          <div
-            key={car.id}
-            className="flex-none w-[90vw] md:w-[45vw] lg:w-[30vw] snap-center relative mt-12 group"
-          >
-            {/* Card Background */}
-            <div className="absolute inset-0 top-8 bg-white rounded-[2rem] border-[1.5px] border-yellow-400 shadow-xl transition-all duration-500 group-hover:shadow-yellow-400/10 group-hover:-translate-y-1" />
-
-            <div className="relative z-10 p-5 md:p-8 flex flex-col h-full">
-              {/* Car Image */}
-              <div className="relative flex flex-col items-center justify-end -mt-16 mb-2">
-                <img
-                  src={car.img}
-                  alt={car.name}
-                  className="w-full h-36 md:h-48 object-contain car-floating-shadow transform transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Road shadow */}
-                <div className={car.darkBg ? 'car-road-shadow-yellow' : 'car-road-shadow'} />
-              </div>
-
-              {/* Tag & ID */}
-              <div className="flex justify-between items-center mb-4">
-                <span className="bg-black text-yellow-400 text-[8px] md:text-[10px] font-bold tracking-widest px-2.5 py-1 rounded uppercase">
-                  {car.type}
-                </span>
-                <span className="text-gray-100 font-black text-4xl md:text-5xl leading-none">0{car.id}</span>
-              </div>
-
-              <h3 className="text-2xl md:text-4xl font-black text-black uppercase leading-tight tracking-tighter mb-4">
-                {car.name}
-              </h3>
-
-              {/* Specs */}
-              <div className="grid grid-cols-3 gap-1 py-4 border-y border-gray-100 mb-6">
-                <div className="flex flex-col items-center border-r border-gray-100">
-                  <Users size={14} className="text-yellow-500 mb-1" />
-                  <span className="text-black text-[10px] md:text-xs font-bold">{car.seats}</span>
-                </div>
-                <div className="flex flex-col items-center border-r border-gray-100">
-                  <Wind size={14} className="text-yellow-500 mb-1" />
-                  <span className="text-black text-[10px] md:text-xs font-bold">{car.ac}</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Fuel size={14} className="text-yellow-500 mb-1" />
-                  <span className="text-black text-[10px] md:text-xs font-bold uppercase">{car.fuel.split('/')[0]}</span>
-                </div>
-              </div>
-
-              {/* Price & CTA */}
-              <div className="flex items-center justify-between mt-auto">
-                <div>
-                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Starts at</span>
-                  <div className="flex items-baseline text-black font-black text-2xl md:text-4xl leading-none">
-                    <span className="text-yellow-500 text-lg md:text-2xl font-bold mr-0.5">₹</span>
-                    {car.rate}
-                    <span className="text-[10px] text-gray-400 ml-1">/KM</span>
-                  </div>
-                </div>
-
-                {/* ✅ Arrow button: scroll to hero + set car */}
-                <button
-                  onClick={() => handleSelectCar(car)}
-                  title={`Book ${car.name}`}
-                  className="bg-yellow-400 hover:bg-black text-black hover:text-white p-3 md:p-4 rounded-2xl transition-all duration-300 shadow-lg active:scale-95 group-hover:rotate-6"
-                >
-                  <ArrowUpRight size={24} strokeWidth={2.5} />
-                </button>
-              </div>
-            </div>
+          {/* Controls */}
+          <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4 md:px-20 z-[60] pointer-events-none">
+            <button 
+              onClick={handlePrev}
+              className="p-4 md:p-6 bg-white/5 hover:bg-yellow-400 text-white hover:text-black rounded-full backdrop-blur-xl border border-white/10 transition-all pointer-events-auto active:scale-90"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button 
+              onClick={handleNext}
+              className="p-4 md:p-6 bg-white/5 hover:bg-yellow-400 text-white hover:text-black rounded-full backdrop-blur-xl border border-white/10 transition-all pointer-events-auto active:scale-90"
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* Navigation Controls */}
-      <div className="container mx-auto px-4 mt-8 flex justify-center items-center gap-6">
-        <div className="hidden md:flex gap-4">
-          <button
-            onClick={() => scroll('left')}
-            className="p-4 border-2 border-black hover:bg-yellow-400 hover:border-yellow-400 transition-all rounded-full group"
-          >
-            <ChevronLeft size={24} className="group-active:-translate-x-1 transition-transform" />
-          </button>
-          <button
-            onClick={() => scroll('right')}
-            className="p-4 bg-black text-white hover:bg-yellow-400 hover:text-black transition-all rounded-full group"
-          >
-            <ChevronRight size={24} className="group-active:translate-x-1 transition-transform" />
-          </button>
-        </div>
-        <div className="md:hidden flex justify-center gap-1.5">
-          <div className="h-1 w-8 bg-yellow-400 rounded-full"></div>
-          <div className="h-1 w-2 bg-gray-200 rounded-full"></div>
-          <div className="h-1 w-2 bg-gray-200 rounded-full"></div>
-        </div>
-      </div>
+      {/* Background Section Glow */}
+      <div className="absolute bottom-0 left-0 w-full h-[500px] bg-gradient-to-t from-yellow-400/5 to-transparent pointer-events-none" />
     </section>
   );
 };
