@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Navigation, User, Calendar, ArrowRight, ChevronRight, Phone, MessageCircle } from 'lucide-react';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  MapPin,
+  Navigation,
+  User,
+  Calendar,
+  ArrowRight,
+  ChevronRight,
+  Phone,
+  MessageCircle,
+} from "lucide-react";
 
-const WA = '919628911211';
+const WA = "919628911211";
 
 // --- IMAGES IMPORT ---
-import car1 from '../assets/cars/car1.png';
-import car2 from '../assets/cars/car2.png';
-import car3 from '../assets/cars/car3.png';
-import car4 from '../assets/cars/car4.png';
-import car5 from '../assets/cars/car5.png';
-import car6 from '../assets/cars/car6.png';
+import car1 from "../assets/cars/car1.webp";
+import car2 from "../assets/cars/car2.webp";
+import quickcar1 from "../assets/cars/quickcar1.webp";
+import quickcar2 from "../assets/cars/quickcar2.webp";
 
 const rideCategories = [
   {
-    id: 'local',
+    id: "local",
     title: "Local Ride",
     desc: "Within Khalilabad City",
     img: car1,
     price: "Starts @ ₹199",
   },
   {
-    id: 'outstation',
+    id: "outstation",
     title: "Outstation",
     desc: "Lucknow, GKP, Basti & More",
     img: car2,
@@ -30,15 +37,15 @@ const rideCategories = [
 ];
 
 const Ride = () => {
-  const [selected, setSelected] = useState('local');
-  const [name, setName] = useState('');
-  const [pickup, setPickup] = useState('');
-  const [drop, setDrop] = useState('');
-  const [date, setDate] = useState('');
+  const [selected, setSelected] = useState("local");
+  const [name, setName] = useState("");
+  const [pickup, setPickup] = useState("");
+  const [drop, setDrop] = useState("");
+  const [date, setDate] = useState("");
 
   const handleBookRide = () => {
     if (!name || !pickup || !drop) {
-      alert('Please fill in Name, Pickup, and Drop.');
+      alert("Please fill in Name, Pickup, and Drop.");
       return;
     }
     const pkg = selected.charAt(0).toUpperCase() + selected.slice(1);
@@ -47,25 +54,23 @@ const Ride = () => {
       `👤 *Name:* ${name}\n` +
       `📍 *Pickup:* ${pickup}\n` +
       `🏁 *Drop:* ${drop}\n` +
-      (date ? `📅 *Date:* ${date}\n` : '') +
+      (date ? `📅 *Date:* ${date}\n` : "") +
       `🚗 *Package:* ${pkg}\n\n` +
       `Hello11 Team, please confirm my booking.`;
-    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(
+      `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,
+      "_blank",
+    );
   };
 
   const getHeroImage = () => {
-    if (selected === 'outstation') return car5;
-    return car4;
+    if (selected === "outstation") return quickcar2;
+    return quickcar1;
   };
 
   return (
     <div className="bg-[#fafafa] min-h-screen pt-28 md:pt-40 pb-20 px-3 md:px-6 relative overflow-hidden">
-      {/* Studio Background Accents */}
-      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-yellow-400/5 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-yellow-400/5 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
-
       <div className="container mx-auto max-w-7xl relative z-10">
-
         {/* Header */}
         <div className="mb-12 md:mb-20 px-2 text-center md:text-left">
           <motion.div
@@ -83,12 +88,15 @@ const Ride = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-6xl md:text-9xl font-black text-black leading-[0.8] tracking-tighter uppercase italic"
           >
-            SELECT <br /> <span className="text-yellow-500 underline decoration-black/5 decoration-8 underline-offset-[-5px]">YOUR RIDE</span>
+            SELECT <br />{" "}
+            <span className="text-yellow-500 underline decoration-black/5 decoration-8 underline-offset-[-5px]">
+              YOUR RIDE
+            </span>
           </motion.h1>
         </div>
 
         {/* Category Selector */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-12 md:mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-24">
           {rideCategories.map((cat, i) => (
             <motion.div
               key={cat.id}
@@ -97,30 +105,37 @@ const Ride = () => {
               transition={{ delay: i * 0.1 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelected(cat.id)}
-              className={`relative overflow-hidden rounded-[3rem] md:rounded-[4rem] p-8 md:p-12 cursor-pointer transition-all duration-500 border group ${selected === cat.id
-                ? 'border-yellow-400 bg-white shadow-[0_40px_100px_-20px_rgba(250,204,21,0.2)]'
-                : 'border-gray-100 bg-white hover:border-yellow-200 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.03)]'
-                }`}
+              className={`relative rounded-[3rem] md:rounded-[4rem] p-8 md:p-12 cursor-pointer transition-all duration-500 border group ${
+                selected === cat.id
+                  ? "border-yellow-400 bg-white shadow-2xl"
+                  : "border-gray-100 bg-white shadow-sm"
+              }`}
             >
               <div className="relative z-10">
-                <h3 className={`text-3xl md:text-5xl font-black italic uppercase tracking-tighter transition-colors ${selected === cat.id ? 'text-black' : 'text-gray-300'}`}>
+                <h3
+                  className={`text-3xl md:text-5xl font-black italic uppercase tracking-tighter transition-colors ${selected === cat.id ? "text-black" : "text-gray-300"}`}
+                >
                   {cat.title}
                 </h3>
-                <p className="text-yellow-600/60 text-[10px] font-black uppercase tracking-[0.4em] mt-2">{cat.desc}</p>
-                <div className={`mt-8 inline-block px-6 py-2 rounded-xl font-black text-sm transition-all shadow-sm ${selected === cat.id ? 'bg-black text-yellow-400' : 'bg-gray-50 text-gray-300'}`}>
+                <p className="text-yellow-600/60 text-[10px] font-black uppercase tracking-[0.4em] mt-2">
+                  {cat.desc}
+                </p>
+                <div
+                  className={`mt-8 inline-block px-6 py-2 rounded-xl font-black text-sm transition-all shadow-sm ${selected === cat.id ? "bg-black text-yellow-400" : "bg-gray-50 text-gray-300"}`}
+                >
                   {cat.price}
                 </div>
               </div>
 
-              {/* Background Car Image */}
-              <div className="absolute bottom-6 -right-8 md:right-0">
+              <div className="absolute -bottom-2 -right-4 md:right-4 overflow-visible">
                 <motion.img
                   src={cat.img}
                   alt={cat.title}
-                  className={`w-44 md:w-72 h-auto object-contain transition-all duration-700 pointer-events-none ${selected === cat.id
-                    ? 'opacity-100 scale-110 translate-x-0'
-                    : 'opacity-5 grayscale translate-x-4 group-hover:opacity-10'
-                    }`}
+                  className={`w-48 md:w-80 h-auto object-contain transition-all duration-700 pointer-events-none ${
+                    selected === cat.id
+                      ? "opacity-100 scale-110 translate-x-0"
+                      : "opacity-10 grayscale translate-x-4 group-hover:opacity-20"
+                  }`}
                 />
               </div>
             </motion.div>
@@ -128,16 +143,10 @@ const Ride = () => {
         </div>
 
         {/* Booking Interface */}
-        <div className="bg-black rounded-[4rem] md:rounded-[6rem] p-8 md:p-20 relative overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.3)]">
-          {/* Subtle Glow Effect */}
-          <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-yellow-400/5 rounded-full blur-[100px]" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
-
-            {/* Left: Car Display */}
-            <div className="relative h-64 md:h-[400px] flex flex-col items-center justify-center order-2 lg:order-1">
-
-              <div className="absolute inset-0 bg-yellow-400/[0.03] rounded-full blur-3xl scale-90" />
+        <div className="bg-black rounded-[4rem] md:rounded-[6rem] p-8 md:p-20 relative overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.3)] border border-white/5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center relative">
+            {/* Left: Car Display - No Shadows or Glows */}
+            <div className="relative h-64 md:h-[450px] flex flex-col items-center justify-center order-2 lg:order-1 px-4">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selected}
@@ -145,12 +154,12 @@ const Ride = () => {
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -50, opacity: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full h-full flex flex-col items-center justify-center p-8"
+                  className="w-full h-full flex flex-col items-center justify-center relative"
                 >
                   <img
                     src={getHeroImage()}
-                    className="w-full h-full object-contain relative z-10 drop-shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
-                    alt="Booking Car"
+                    className="w-full h-auto max-h-full object-contain relative z-10"
+                    alt="Quick Booking Car"
                   />
                 </motion.div>
               </AnimatePresence>
@@ -170,22 +179,58 @@ const Ride = () => {
 
                 <div className="grid grid-cols-1 gap-4">
                   <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
-                    <User className="text-gray-500 group-focus-within:text-yellow-400 shrink-0" size={18} />
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Full Name" className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight" />
+                    <User
+                      className="text-gray-500 group-focus-within:text-yellow-400 shrink-0"
+                      size={18}
+                    />
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Full Name"
+                      className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight"
+                    />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
-                      <MapPin className="text-gray-500 group-focus-within:text-yellow-400 shrink-0" size={18} />
-                      <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Pickup Location" className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight" />
+                      <MapPin
+                        className="text-gray-500 group-focus-within:text-yellow-400 shrink-0"
+                        size={18}
+                      />
+                      <input
+                        type="text"
+                        value={pickup}
+                        onChange={(e) => setPickup(e.target.value)}
+                        placeholder="Pickup Location"
+                        className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight"
+                      />
                     </div>
                     <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
-                      <Navigation className="text-gray-500 group-focus-within:text-yellow-400 shrink-0" size={18} />
-                      <input type="text" value={drop} onChange={e => setDrop(e.target.value)} placeholder="Drop Location" className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight" />
+                      <Navigation
+                        className="text-gray-500 group-focus-within:text-yellow-400 shrink-0"
+                        size={18}
+                      />
+                      <input
+                        type="text"
+                        value={drop}
+                        onChange={(e) => setDrop(e.target.value)}
+                        placeholder="Drop Location"
+                        className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold uppercase tracking-tight"
+                      />
                     </div>
                   </div>
                   <div className="flex items-center gap-4 bg-white/[0.03] p-5 rounded-2xl border border-white/5 focus-within:border-yellow-400/50 transition-all group">
-                    <Calendar className="text-gray-500 group-focus-within:text-yellow-500 shrink-0" size={18} />
-                    <input type="date" value={date} onChange={e => setDate(e.target.value)} className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold appearance-none" style={{ colorScheme: 'dark' }} />
+                    <Calendar
+                      className="text-gray-500 group-focus-within:text-yellow-500 shrink-0"
+                      size={18}
+                    />
+                    <input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="bg-transparent outline-none text-white text-base w-full placeholder:text-gray-700 font-bold appearance-none"
+                      style={{ colorScheme: "dark" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -197,22 +242,18 @@ const Ride = () => {
                 className="w-full bg-yellow-400 py-6 rounded-[2rem] text-black font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-white transition-all duration-500 group shadow-[0_20px_50px_rgba(250,204,21,0.3)]"
               >
                 CONFIRM {selected.toUpperCase()} RIDE
-                <ArrowRight size={24} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
+                <ArrowRight
+                  size={24}
+                  strokeWidth={3}
+                  className="group-hover:translate-x-2 transition-transform"
+                />
               </motion.button>
-
-              <div className="flex items-center justify-center gap-8 text-gray-600 text-[10px] font-black uppercase tracking-[0.3em]">
-                <span className="flex items-center gap-2"><ChevronRight size={12} className="text-yellow-400" /> Instant</span>
-                <span className="flex items-center gap-2"><ChevronRight size={12} className="text-yellow-400" /> Secure</span>
-                <span className="flex items-center gap-2"><ChevronRight size={12} className="text-yellow-400" /> 24/7</span>
-              </div>
             </div>
-
           </div>
         </div>
 
         {/* Support Section */}
         <div className="mt-20 md:mt-32 border border-gray-100 rounded-[4rem] p-10 md:p-20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.03)] text-center relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400/5 rounded-full blur-3xl -ml-32 -mt-32" />
           <h3 className="text-4xl md:text-7xl font-black italic text-black uppercase tracking-tighter mb-8 leading-none">
             NEED <span className="text-yellow-500">ASSISTANCE?</span>
           </h3>
@@ -233,7 +274,6 @@ const Ride = () => {
             </a>
           </div>
         </div>
-
       </div>
     </div>
   );

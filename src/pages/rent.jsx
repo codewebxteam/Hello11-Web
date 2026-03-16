@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Fuel, Gauge, ChevronRight, X, User, MapPin, Navigation, Calendar, Phone, MessageCircle } from 'lucide-react';
 
-import car1 from '../assets/cars/car1.png';
-import car2 from '../assets/cars/car2.png';
-import car3 from '../assets/cars/car3.png';
-import car4 from '../assets/cars/car4.png';
-import car5 from '../assets/cars/car5.png';
-import car6 from '../assets/cars/car6.png';
+import car1 from '../assets/cars/car1.webp';
+import car2 from '../assets/cars/car2.webp';
+import car3 from '../assets/cars/car3.webp';
+import car4 from '../assets/cars/car4.webp';
+import car5 from '../assets/cars/car5.webp';
+import car6 from '../assets/cars/car6.webp';
 
 const WA = '919628911211';
 
