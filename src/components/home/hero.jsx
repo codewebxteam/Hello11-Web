@@ -9,7 +9,7 @@ import {
   Star,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import aura from "../../assets/cars/car2.png";
+import aura from "../../assets/cars/car2.webp";
 import { useBooking } from "../../context/BookingContext";
 
 const WA = "919628911211";
