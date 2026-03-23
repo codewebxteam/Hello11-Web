@@ -32,7 +32,7 @@ const cars = [
   },
   {
     id: 2,
-    name: "Hyundai Aura",
+    name: "Swift Dzire",
     type: "Premium Sedan",
     img: car2,
     rate: "12",
@@ -43,7 +43,7 @@ const cars = [
   },
   {
     id: 3,
-    name: "Maruti Swift",
+    name: "Hyundai Aura",
     type: "Economy Hatch",
     img: car3,
     rate: "10",
@@ -54,7 +54,7 @@ const cars = [
   },
   {
     id: 4,
-    name: "Mahindra Scorpio",
+    name: "Ertiga",
     type: "Power SUV",
     img: car4,
     rate: "16",
@@ -65,7 +65,7 @@ const cars = [
   },
   {
     id: 5,
-    name: "Hyundai i10",
+    name: "Bolero Neo",
     type: "City Compact",
     img: car5,
     rate: "9",
@@ -76,7 +76,7 @@ const cars = [
   },
   {
     id: 6,
-    name: "Mahindra Bolero",
+    name: "Bolero",
     type: "Rugged MUV",
     img: car6,
     rate: "13",

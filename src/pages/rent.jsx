@@ -12,12 +12,12 @@ import car6 from '../assets/cars/car6.webp';
 const WA = '919628911211';
 
 const cars = [
-  { id: 1, name: "Swift Dzire", price: "10", img: car1, seats: "5", fuel: "CNG/Pet", gear: "Manual", darkBg: false },
-  { id: 2, name: "Toyota Innova", price: "18", img: car2, seats: "7", fuel: "Diesel", gear: "Manual", darkBg: false },
-  { id: 3, name: "Ertiga ZXI", price: "14", img: car3, seats: "7", fuel: "CNG", gear: "Manual", darkBg: false },
-  { id: 4, name: "Mahindra XUV", price: "16", img: car4, seats: "7", fuel: "Diesel", gear: "Auto", darkBg: true },
-  { id: 5, name: "Honda City", price: "15", img: car5, seats: "5", fuel: "Petrol", gear: "Auto", darkBg: true },
-  { id: 6, name: "Fortuner", price: "22", img: car6, seats: "7", fuel: "Diesel", gear: "Auto", darkBg: true },
+  { id: 1, name: "Innova Crysta", price: "18", img: car1, seats: "7+1", fuel: "Diesel", gear: "Auto", darkBg: false },
+  { id: 2, name: "Swift Dzire", price: "12", img: car2, seats: "4+1", fuel: "CNG/Pet", gear: "Manual", darkBg: false },
+  { id: 3, name: "Hyundai Aura", price: "10", img: car3, seats: "4+1", fuel: "CNG", gear: "Manual", darkBg: false },
+  { id: 4, name: "Ertiga", price: "16", img: car4, seats: "6+1", fuel: "CNG", gear: "Manual", darkBg: true },
+  { id: 5, name: "Bolero Neo", price: "9", img: car5, seats: "4+1", fuel: "Diesel", gear: "Manual", darkBg: true },
+  { id: 6, name: "Bolero", price: "13", img: car6, seats: "6+1", fuel: "Diesel", gear: "Manual", darkBg: true },
 ];
 
 const inp = "w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-yellow-400 transition-colors text-sm";
@@ -58,7 +58,7 @@ const Rent = () => {
             <span className="text-yellow-600 font-bold tracking-[0.3em] text-[10px] uppercase">Self Drive</span>
           </div>
           <h1 className="text-5xl md:text-8xl font-black text-black leading-none tracking-tighter uppercase italic">
-            ELITE <span className="text-yellow-500">FLEET</span>
+            OUR <span className="text-yellow-500">GARAGE</span>
           </h1>
           <p className="text-gray-400 font-bold uppercase tracking-widest text-[9px] md:text-xs mt-3">
             Premium selection for your next journey
